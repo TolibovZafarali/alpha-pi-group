@@ -47,7 +47,7 @@ export function HeroTruckIllustration({
     <div
       aria-hidden="true"
       className={cx(
-        "pointer-events-none absolute inset-0 overflow-hidden",
+        "pointer-events-none absolute inset-0 hidden overflow-hidden sm:block",
         className,
       )}
       ref={wrapperRef}

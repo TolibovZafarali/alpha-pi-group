@@ -13,10 +13,12 @@ export function BrandLogo({
   priority = false,
   variant = "light",
 }: BrandLogoProps) {
+  const hasCustomWidth = /\b(?:w|min-w|max-w)-/.test(className ?? "");
+
   return (
     <Image
       alt="Alpha-Pi Group"
-      className={cx("h-auto w-[148px]", className)}
+      className={cx("h-auto", hasCustomWidth ? undefined : "w-[148px]", className)}
       height={375}
       priority={priority}
       src={
@@ -29,4 +31,3 @@ export function BrandLogo({
     />
   );
 }
-
