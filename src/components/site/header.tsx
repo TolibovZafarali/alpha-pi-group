@@ -94,7 +94,7 @@ export function Header({ ctaHref, navigation }: HeaderProps) {
           onClick={closeMenu}
         >
           <span className="flex items-center gap-3">
-            <BrandLogo className="w-5 sm:w-9" priority />
+            <BrandLogo className="w-8 shrink-0 sm:w-11" priority variant="light" />
             <span className="font-mono text-[11px] tracking-[0.24em] text-white uppercase">
               Alpha-Pi Group
             </span>
