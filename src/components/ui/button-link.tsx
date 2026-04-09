@@ -6,7 +6,7 @@ import { cx } from "@/lib/cx";
 
 type ButtonLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
   variant?: "primary" | "secondary";
-  icon?: "arrow-right" | "arrow-up-right";
+  icon?: "arrow-right" | "arrow-up-right" | "none";
 };
 
 export function ButtonLink({
@@ -30,7 +30,7 @@ export function ButtonLink({
       {...props}
     >
       <span>{children}</span>
-      <Icon className="h-4 w-4" aria-hidden="true" />
+      {icon === "none" ? null : <Icon className="h-4 w-4" aria-hidden="true" />}
     </a>
   );
 }

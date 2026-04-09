@@ -31,6 +31,13 @@ export function Header({ ctaHref, navigation }: HeaderProps) {
   const [isCondensed, setIsCondensed] = useState(false);
   const prefersReducedMotion = useReducedMotion();
   const { scrollY } = useScroll();
+  const contactItem = navigation.find(
+    (item) => item.label.toLowerCase() === "contact",
+  );
+  const headerNavigation = navigation.filter(
+    (item) => item.label.toLowerCase() !== "contact",
+  );
+  const contactHref = contactItem?.href ?? ctaHref;
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsCondensed(latest > 24);
@@ -58,16 +65,9 @@ export function Header({ ctaHref, navigation }: HeaderProps) {
           ease: [0.16, 1, 0.3, 1],
         }}
       >
-        <Container className="flex items-center justify-between gap-6 py-4">
-          <a
-            className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            href="#top"
-          >
-            <BrandLogo className="w-[132px] sm:w-[152px]" priority />
-          </a>
-
-          <nav className="hidden items-center gap-7 xl:flex">
-            {navigation.map((item) => (
+        <Container className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 py-4">
+          <nav className="col-start-1 row-start-1 hidden min-w-0 items-center gap-7 xl:flex">
+            {headerNavigation.map((item) => (
               <a
                 className="font-mono text-[11px] tracking-[0.28em] text-muted-foreground uppercase transition hover:text-white focus-visible:outline-none focus-visible:text-white"
                 href={item.href}
@@ -78,8 +78,17 @@ export function Header({ ctaHref, navigation }: HeaderProps) {
             ))}
           </nav>
 
-          <div className="hidden items-center gap-4 xl:flex">
-            <ButtonLink href={ctaHref}>Contact</ButtonLink>
+          <a
+            className="col-start-2 row-start-1 justify-self-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            href="#top"
+          >
+            <BrandLogo className="w-[40px] sm:w-[60px]" priority />
+          </a>
+
+          <div className="col-start-3 row-start-1 hidden justify-self-end xl:flex">
+            <ButtonLink href={contactHref} icon="none">
+              Contact
+            </ButtonLink>
           </div>
 
           <button
@@ -87,7 +96,7 @@ export function Header({ ctaHref, navigation }: HeaderProps) {
             aria-expanded={isOpen}
             aria-label={isOpen ? "Close navigation" : "Open navigation"}
             className={cx(
-              "inline-flex h-11 w-11 items-center justify-center border text-white transition hover:bg-white/6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white xl:hidden",
+              "col-start-3 row-start-1 inline-flex h-11 w-11 justify-self-end items-center justify-center border text-white transition hover:bg-white/6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white xl:hidden",
               isCondensed ? "border-white/14 bg-white/[0.03]" : "border-white/10 bg-black/10",
             )}
             onClick={() => setIsOpen((open) => !open)}
@@ -110,7 +119,7 @@ export function Header({ ctaHref, navigation }: HeaderProps) {
           >
             <Container className="pb-8 pt-4">
               <div className="border-t border-white/10 pt-6">
-                {navigation.map((item, index) => (
+                {headerNavigation.map((item, index) => (
                   <a
                     className={cx(
                       "block border-b border-white/10 py-5 text-3xl tracking-[-0.06em] text-white transition hover:text-foreground-soft",
@@ -126,7 +135,12 @@ export function Header({ ctaHref, navigation }: HeaderProps) {
               </div>
 
               <div className="mt-6 flex flex-col gap-4">
-                <ButtonLink className="justify-center" href={ctaHref}>
+                <ButtonLink
+                  className="justify-center"
+                  href={contactHref}
+                  icon="none"
+                  onClick={closeMenu}
+                >
                   Contact
                 </ButtonLink>
               </div>
