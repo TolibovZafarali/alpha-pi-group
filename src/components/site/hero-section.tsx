@@ -1,4 +1,4 @@
-import { Check, Mail } from "lucide-react";
+import { Check, Mail, PhoneCall } from "lucide-react";
 
 import { ButtonLink } from "@/components/ui/button-link";
 import { BrandLogo } from "@/components/ui/brand-logo";
@@ -7,10 +7,11 @@ import { Reveal, StaggerGroup, StaggerItem } from "@/components/ui/reveal";
 import type { SiteContent } from "@/content/site";
 
 type HeroSectionProps = {
+  contactDetails: SiteContent["contactDetails"];
   hero: SiteContent["hero"];
 };
 
-export function HeroSection({ hero }: HeroSectionProps) {
+export function HeroSection({ contactDetails, hero }: HeroSectionProps) {
   const titleWithoutHighlight = hero.title.replace(hero.highlightedText, "").trim();
 
   return (
@@ -18,6 +19,10 @@ export function HeroSection({ hero }: HeroSectionProps) {
       className="relative overflow-hidden pb-24 pt-16 sm:pb-28 sm:pt-20 lg:pb-32 lg:pt-24"
       id="top"
     >
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-[32rem] bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:72px_72px] opacity-[0.18] [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.8),transparent)]"
+      />
       <Container className="grid items-end gap-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(360px,0.9fr)] lg:gap-12">
         <div className="max-w-3xl">
           <Reveal>
@@ -98,13 +103,34 @@ export function HeroSection({ hero }: HeroSectionProps) {
                 </div>
               ))}
               <div className="rounded-[24px] border border-accent/20 bg-accent/10 p-5 sm:col-span-2">
-                <div className="flex items-center gap-3 text-sm font-semibold tracking-[0.16em] text-accent uppercase">
-                  <Mail className="h-4 w-4" />
-                  hello@alphapigroup.com
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <a
+                    className="rounded-[18px] border border-white/10 bg-black/10 px-4 py-4 transition hover:bg-black/15"
+                    href={contactDetails.email.href}
+                  >
+                    <div className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.18em] text-[#8d7753] uppercase">
+                      <Mail className="h-4 w-4" />
+                      {contactDetails.email.label}
+                    </div>
+                    <p className="mt-2 text-sm font-medium text-[#2a3039]">
+                      {contactDetails.email.value}
+                    </p>
+                  </a>
+                  <a
+                    className="rounded-[18px] border border-white/10 bg-black/10 px-4 py-4 transition hover:bg-black/15"
+                    href={contactDetails.phone.href}
+                  >
+                    <div className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.18em] text-[#8d7753] uppercase">
+                      <PhoneCall className="h-4 w-4" />
+                      {contactDetails.phone.label}
+                    </div>
+                    <p className="mt-2 text-sm font-medium text-[#2a3039]">
+                      {contactDetails.phone.value}
+                    </p>
+                  </a>
                 </div>
-                <p className="mt-3 text-sm leading-7 text-[#d8ccba]">
-                  Frontend-only by design. Reach out directly and we will keep the
-                  conversation focused.
+                <p className="mt-4 text-sm leading-7 text-[#594c35]">
+                  {contactDetails.note}
                 </p>
               </div>
             </div>
@@ -114,4 +140,3 @@ export function HeroSection({ hero }: HeroSectionProps) {
     </section>
   );
 }
-

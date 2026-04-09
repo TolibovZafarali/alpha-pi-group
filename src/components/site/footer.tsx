@@ -1,14 +1,22 @@
+import { Mail, PhoneCall } from "lucide-react";
+
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { Container } from "@/components/ui/container";
 import type { SiteContent } from "@/content/site";
 
 type FooterProps = {
   companyName: string;
+  contactDetails: SiteContent["contactDetails"];
   footer: SiteContent["footer"];
   navigation: SiteContent["navigation"];
 };
 
-export function Footer({ companyName, footer, navigation }: FooterProps) {
+export function Footer({
+  companyName,
+  contactDetails,
+  footer,
+  navigation,
+}: FooterProps) {
   return (
     <footer className="border-t border-white/10 pb-10 pt-8">
       <Container className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
@@ -36,6 +44,22 @@ export function Footer({ companyName, footer, navigation }: FooterProps) {
               </a>
             ))}
           </nav>
+          <div className="space-y-3 lg:ml-auto lg:max-w-sm">
+            <a
+              className="flex items-center gap-3 text-sm text-muted-foreground transition hover:text-foreground lg:justify-end"
+              href={contactDetails.email.href}
+            >
+              <Mail className="h-4 w-4 text-accent" />
+              <span>{contactDetails.email.value}</span>
+            </a>
+            <a
+              className="flex items-center gap-3 text-sm text-muted-foreground transition hover:text-foreground lg:justify-end"
+              href={contactDetails.phone.href}
+            >
+              <PhoneCall className="h-4 w-4 text-accent" />
+              <span>{contactDetails.phone.value}</span>
+            </a>
+          </div>
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} {companyName}. All rights reserved.
           </p>
@@ -44,4 +68,3 @@ export function Footer({ companyName, footer, navigation }: FooterProps) {
     </footer>
   );
 }
-

@@ -1,15 +1,31 @@
 export type IconName =
   | "BriefcaseBusiness"
   | "Building2"
+  | "Clock3"
   | "Landmark"
+  | "MessageSquareText"
+  | "PhoneCall"
   | "Orbit"
   | "ShieldCheck"
+  | "Truck"
   | "Waypoints"
   | "Workflow";
 
 export const siteContent = {
   companyName: "Alpha-Pi Group",
-  email: "hello@alphapigroup.com",
+  contactDetails: {
+    email: {
+      label: "Placeholder business email",
+      value: "business@alphapigroup.com",
+      href: "mailto:business@alphapigroup.com",
+    },
+    phone: {
+      label: "Placeholder business phone",
+      value: "(000) 000-0000",
+      href: "tel:+10000000000",
+    },
+    note: "Replace the placeholder email and phone number with live business contact details before launch.",
+  },
   navigation: [
     { label: "About", href: "#about" },
     { label: "Services", href: "#services" },
@@ -17,137 +33,144 @@ export const siteContent = {
     { label: "Contact", href: "#contact" },
   ],
   hero: {
-    eyebrow: "Independent advisory and operating perspective",
-    title: "Deliberate strategy for businesses that value clarity over noise.",
-    highlightedText: "clarity over noise.",
+    eyebrow: "Modern driver recruiting and carrier support",
+    title:
+      "Professional recruiting and carrier support for transportation businesses that expect a higher standard.",
+    highlightedText: "higher standard.",
     description:
-      "Alpha-Pi Group helps leadership teams sharpen direction, strengthen positioning, and move with disciplined conviction. We work quietly, think long term, and focus on decisions that compound.",
+      "Alpha-Pi Group works with motor carriers to help connect them with drivers through direct communication, organized follow-through, and a professional workflow that reflects serious business.",
     primaryAction: {
-      label: "Start a Conversation",
-      href: "mailto:hello@alphapigroup.com",
+      label: "Get in Touch",
+      href: "mailto:business@alphapigroup.com",
     },
     secondaryAction: {
-      label: "Explore Services",
+      label: "Our Services",
       href: "#services",
     },
-    plaqueTitle: "A steady hand at pivotal moments.",
+    plaqueTitle: "Built for carriers that value professionalism.",
     plaqueDescription:
-      "Built for operators, founders, and leadership teams who need strategic traction without performative complexity.",
+      "We support recruiting, communication, and day-to-day coordination in a way that feels modern, responsive, and legitimate from the first conversation.",
     plaqueHighlights: [
-      "Strategic clarity",
-      "Structured execution",
-      "Long-horizon perspective",
+      "Driver recruiting",
+      "Carrier support",
+      "Operational follow-through",
     ],
     supportingNotes: [
       {
-        title: "Senior attention",
-        description: "Direct engagement with focused, high-context work.",
+        title: "Direct communication",
+        description: "Clear outreach, fast replies, and less back-and-forth.",
       },
       {
-        title: "Measured pace",
-        description: "Deliberate recommendations with practical next steps.",
+        title: "Professional workflow",
+        description:
+          "A cleaner process for carriers, drivers, and business partners.",
       },
     ],
   },
   about: {
     eyebrow: "About",
-    title: "A modern partner for complex business decisions.",
+    title: "A serious business supporting carriers and recruiting drivers.",
     description:
-      "We support high-stakes moments where positioning, structure, and judgment matter. Our role is to reduce friction in decision-making, create coherent operating paths, and help teams align around the right next move.",
+      "Alpha-Pi Group focuses on driver recruiting and carrier support in the trucking and transportation space. We help motor carriers communicate clearly, move faster, and present a more professional process to drivers and partners.",
     principles: [
       {
-        title: "Clarity first",
+        title: "Driver recruiting",
         description:
-          "We turn ambiguity into clear priorities, concise narratives, and actionable direction.",
+          "We help carriers connect with drivers through direct communication and a more organized recruiting process.",
       },
       {
-        title: "Operationally grounded",
+        title: "Carrier support",
         description:
-          "Strategy only matters if it survives contact with execution, resources, and timelines.",
+          "We stay close to the workflow so carriers get responsive support, cleaner coordination, and fewer loose ends.",
       },
       {
-        title: "Built for trust",
+        title: "Professional execution",
         description:
-          "Our approach is quiet, rigorous, and designed to strengthen confidence at the leadership level.",
+          "The work is modern, reliable, and built to reflect the standard of a legitimate transportation business.",
       },
     ],
   },
   services: {
     eyebrow: "Services",
-    title: "Focused support across strategy, structure, and growth readiness.",
+    title: "Focused support for recruiting, communication, and operational follow-through.",
     description:
-      "The work is tailored to context, but the mandate stays consistent: sharpen positioning, improve decision quality, and create momentum without unnecessary complexity.",
+      "Alpha-Pi Group keeps the offer simple: help carriers recruit drivers, support daily communication, and improve the business workflow around growth and execution.",
     items: [
       {
-        title: "Strategic Advisory",
+        title: "Driver Recruiting",
         description:
-          "Refine direction, frame key choices, and align leadership around the decisions that matter most.",
-        icon: "BriefcaseBusiness" as const,
+          "Direct recruiting support that helps carriers connect with drivers without looking disorganized or transactional.",
+        icon: "Truck" as const,
       },
       {
-        title: "Corporate Positioning",
+        title: "Carrier Support",
         description:
-          "Strengthen how the business is understood by stakeholders, partners, and the market.",
-        icon: "Building2" as const,
+          "Responsive communication and follow-through for carrier-side needs, updates, and day-to-day coordination.",
+        icon: "PhoneCall" as const,
       },
       {
-        title: "Operating Model Design",
+        title: "Business Operations & Growth Support",
         description:
-          "Clarify responsibilities, flows, and priorities so execution becomes more deliberate and scalable.",
+          "Practical support around workflow, business structure, and operational momentum as the company grows.",
         icon: "Workflow" as const,
-      },
-      {
-        title: "Capital and Growth Readiness",
-        description:
-          "Prepare the narrative, structure, and strategic materials needed for the next phase of expansion.",
-        icon: "Landmark" as const,
       },
     ],
   },
   whyUs: {
     eyebrow: "Why Us",
-    title: "Premium by discipline, not by decoration.",
+    title: "Why carriers choose Alpha-Pi Group.",
     description:
-      "Alpha-Pi Group is designed for teams that prefer substance, discretion, and thoughtful execution over broad promises.",
+      "The difference is not noise or hype. It is cleaner communication, faster follow-through, and a workflow that treats every interaction like real business.",
     points: [
       {
-        title: "Senior-level judgment",
+        title: "Direct communication",
         description:
-          "You get experienced thinking, direct communication, and recommendations that respect context.",
-        icon: "ShieldCheck" as const,
+          "Clear contact, straightforward updates, and less wasted time across the process.",
+        icon: "MessageSquareText" as const,
       },
       {
-        title: "Structured movement",
+        title: "Fast response",
         description:
-          "We create clear frameworks that help teams move forward without introducing extra noise.",
+          "Speed matters in recruiting and carrier coordination, so response time stays a priority.",
+        icon: "Clock3" as const,
+      },
+      {
+        title: "Professional workflow",
+        description:
+          "A cleaner, more consistent process helps carriers look established and operate with confidence.",
+        icon: "Workflow" as const,
+      },
+      {
+        title: "Modern business approach",
+        description:
+          "The work is organized, current, and built for transportation businesses that want a more professional standard.",
         icon: "Waypoints" as const,
       },
       {
-        title: "Long-horizon view",
+        title: "Reliable support",
         description:
-          "Every recommendation is weighed against durability, credibility, and long-term strategic value.",
-        icon: "Orbit" as const,
+          "Consistent follow-through matters. Alpha-Pi Group is built to be dependable where it counts.",
+        icon: "ShieldCheck" as const,
       },
     ],
   },
   contact: {
     eyebrow: "Contact",
-    title: "Move with conviction.",
+    title: "Start the conversation.",
     description:
-      "If you need a sharper point of view, a more coherent strategic position, or a trusted thought partner for the next phase, start here.",
+      "For business inquiries, recruiting support, or carrier partnership conversations, reach out directly. The contact details below are placeholders and can be replaced before launch.",
     primaryAction: {
       label: "Email Alpha-Pi Group",
-      href: "mailto:hello@alphapigroup.com",
+      href: "mailto:business@alphapigroup.com",
     },
     secondaryAction: {
-      label: "Back to Top",
-      href: "#top",
+      label: "Our Services",
+      href: "#services",
     },
   },
   footer: {
-    note: "Independent advisory for businesses that value precision, trust, and long-term thinking.",
+    note: "Modern driver recruiting and carrier support for serious transportation businesses.",
   },
 } as const;
 
 export type SiteContent = typeof siteContent;
-

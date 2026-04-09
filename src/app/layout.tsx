@@ -10,9 +10,9 @@ import "@fontsource/manrope/800.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Alpha-Pi Group | Independent Advisory",
+  title: "Alpha-Pi Group | Driver Recruiting and Carrier Support",
   description:
-    "Alpha-Pi Group is a modern advisory partner for businesses that value precision, clarity, and disciplined long-term thinking.",
+    "Alpha-Pi Group provides modern driver recruiting and carrier support for transportation businesses through direct communication and a professional workflow.",
 };
 
 export default function RootLayout({

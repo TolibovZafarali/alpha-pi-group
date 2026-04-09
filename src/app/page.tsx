@@ -21,23 +21,26 @@ export default function Home() {
       />
 
       <main className="relative">
-        <HeroSection hero={siteContent.hero} />
+        <HeroSection
+          contactDetails={siteContent.contactDetails}
+          hero={siteContent.hero}
+        />
         <AboutSection about={siteContent.about} />
         <ServicesSection services={siteContent.services} />
         <WhyUsSection whyUs={siteContent.whyUs} />
         <ContactCtaSection
           companyName={siteContent.companyName}
           contact={siteContent.contact}
-          email={siteContent.email}
+          contactDetails={siteContent.contactDetails}
         />
       </main>
 
       <Footer
         companyName={siteContent.companyName}
+        contactDetails={siteContent.contactDetails}
         footer={siteContent.footer}
         navigation={siteContent.navigation}
       />
     </div>
   );
 }
-

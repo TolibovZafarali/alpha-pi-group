@@ -2,9 +2,8 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import {
-  BriefcaseBusiness,
-  Building2,
-  Landmark,
+  PhoneCall,
+  Truck,
   Workflow,
   type LucideIcon,
 } from "lucide-react";
@@ -15,12 +14,11 @@ import { SectionShell } from "@/components/ui/section-shell";
 import type { IconName, SiteContent } from "@/content/site";
 
 const serviceIcons: Record<
-  Extract<IconName, "BriefcaseBusiness" | "Building2" | "Landmark" | "Workflow">,
+  Extract<IconName, "PhoneCall" | "Truck" | "Workflow">,
   LucideIcon
 > = {
-  BriefcaseBusiness,
-  Building2,
-  Landmark,
+  PhoneCall,
+  Truck,
   Workflow,
 };
 
@@ -42,7 +40,7 @@ export function ServicesSection({ services }: ServicesSectionProps) {
         />
       </Reveal>
 
-      <StaggerGroup className="mt-14 grid gap-5 md:grid-cols-2">
+      <StaggerGroup className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {services.items.map((service) => {
           const Icon = serviceIcons[service.icon];
 
@@ -71,4 +69,3 @@ export function ServicesSection({ services }: ServicesSectionProps) {
     </SectionShell>
   );
 }
-
