@@ -11,9 +11,14 @@ export default function Home() {
   return (
     <div className="relative overflow-x-clip bg-background text-foreground">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[-8rem] top-20 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,_rgba(255,255,255,0.12)_0%,_rgba(255,255,255,0)_68%)] blur-3xl" />
-        <div className="absolute right-[-12rem] top-[28rem] h-[32rem] w-[32rem] rounded-full bg-[radial-gradient(circle,_rgba(255,255,255,0.08)_0%,_rgba(255,255,255,0)_70%)] blur-3xl" />
-        <div className="absolute inset-x-0 top-[38rem] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute left-5 top-0 h-full w-px bg-white/8 sm:left-8 lg:left-12" />
+        <div className="absolute right-5 top-0 h-full w-px bg-white/8 sm:right-8 lg:right-12" />
+        <div className="absolute left-[-10rem] top-10 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,_rgba(255,255,255,0.16)_0%,_rgba(255,255,255,0)_70%)] blur-3xl" />
+        <div className="absolute right-[-14rem] top-[20rem] h-[38rem] w-[38rem] rounded-full bg-[radial-gradient(circle,_rgba(255,255,255,0.1)_0%,_rgba(255,255,255,0)_70%)] blur-3xl" />
+        <div className="absolute left-1/2 top-[22rem] hidden h-[34rem] w-px -translate-x-1/2 bg-gradient-to-b from-white/28 via-white/10 to-transparent lg:block" />
+        <div className="editorial-outline absolute right-[-6vw] top-[14rem] hidden text-[clamp(8rem,18vw,18rem)] leading-none font-medium tracking-[-0.12em] uppercase xl:block">
+          Alpha-Pi
+        </div>
       </div>
 
       <Header

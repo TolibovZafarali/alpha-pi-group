@@ -15,20 +15,22 @@ export function Footer({
   navigation,
 }: FooterProps) {
   return (
-    <footer className="border-t border-white/10 pb-10 pt-8 sm:pb-12">
-      <Container className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-        <div className="max-w-md space-y-4">
-          <p className="font-mono text-[11px] tracking-[0.28em] text-white/58 uppercase">
+    <footer className="border-t border-white/10 pb-10 pt-10 sm:pb-12 sm:pt-12">
+      <Container className="grid gap-10 lg:grid-cols-[minmax(0,0.56fr)_minmax(0,0.44fr)] lg:items-end">
+        <div className="max-w-2xl">
+          <p className="font-mono text-[10px] tracking-[0.32em] text-white/46 uppercase">
             {companyName}
           </p>
-          <p className="text-sm leading-7 text-muted-foreground">{footer.note}</p>
+          <p className="mt-5 text-[clamp(1.8rem,3vw,3rem)] leading-[1.05] tracking-[-0.07em] text-white">
+            {footer.note}
+          </p>
         </div>
 
-        <div className="space-y-4 lg:text-right">
-          <nav className="flex flex-wrap gap-4 lg:justify-end">
+        <div className="grid gap-8 lg:justify-items-end">
+          <nav className="grid gap-px border border-white/10 bg-white/10 sm:grid-cols-2">
             {navigation.map((item) => (
               <a
-                className="font-mono text-[11px] tracking-[0.28em] text-muted-foreground uppercase transition hover:text-white"
+                className="bg-black px-4 py-3 font-mono text-[11px] tracking-[0.26em] text-white/68 uppercase transition hover:bg-white hover:text-black"
                 href={item.href}
                 key={item.href}
               >
@@ -37,10 +39,10 @@ export function Footer({
             ))}
           </nav>
 
-          <div className="grid gap-4 text-sm text-muted-foreground">
+          <div className="grid gap-5 text-sm text-muted-foreground sm:grid-cols-2 lg:text-right">
             {contactDetails.operators.map((operator) => (
-              <div className="space-y-1" key={operator.email.href}>
-                <p className="font-mono text-[11px] tracking-[0.24em] text-white/58 uppercase">
+              <div className="space-y-2" key={operator.email.href}>
+                <p className="font-mono text-[10px] tracking-[0.28em] text-white/46 uppercase">
                   {operator.name}
                 </p>
                 <a
@@ -59,8 +61,8 @@ export function Footer({
             ))}
           </div>
 
-          <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} {companyName}. All rights reserved.
+          <p className="font-mono text-[10px] tracking-[0.28em] text-white/38 uppercase">
+            © {new Date().getFullYear()} {companyName}
           </p>
         </div>
       </Container>

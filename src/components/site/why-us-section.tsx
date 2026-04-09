@@ -14,11 +14,11 @@ type WhyUsSectionProps = {
 };
 
 const rowOffsets = [
-  "lg:mr-20",
-  "lg:ml-10",
-  "lg:mr-10",
+  "lg:mr-14",
   "lg:ml-20",
-  "lg:mr-6",
+  "lg:mr-8",
+  "lg:ml-12",
+  "lg:mr-4",
 ];
 
 export function WhyUsSection({ whyUs }: WhyUsSectionProps) {
@@ -26,60 +26,67 @@ export function WhyUsSection({ whyUs }: WhyUsSectionProps) {
   const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 75%", "end 85%"],
+    offset: ["start 72%", "end 88%"],
   });
   const progressScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section className="scroll-mt-28 py-24 sm:py-28 lg:py-32" id="why-us" ref={ref}>
-      <Container className="grid gap-14 lg:grid-cols-[minmax(240px,0.34fr)_minmax(0,0.66fr)] lg:gap-16">
-        <div className="lg:sticky lg:top-28 lg:self-start">
-          <Reveal className="max-w-md">
-            <p className="font-mono text-[11px] tracking-[0.3em] text-white/78 uppercase">
+    <section
+      className="relative scroll-mt-28 py-24 sm:py-28 lg:py-32"
+      id="why-us"
+      ref={ref}
+    >
+      <Container className="grid gap-14 xl:grid-cols-12 xl:gap-10">
+        <div className="xl:col-span-4 xl:sticky xl:top-28 xl:self-start">
+          <Reveal className="max-w-lg">
+            <p className="font-mono text-[10px] tracking-[0.32em] text-white/52 uppercase">
               {whyUs.eyebrow}
             </p>
-            <h2 className="mt-5 text-4xl leading-[0.98] font-medium tracking-[-0.07em] text-white sm:text-5xl">
+            <h2 className="mt-5 text-[clamp(3rem,5vw,5.4rem)] leading-[0.92] font-medium tracking-[-0.1em] text-white">
               {whyUs.title}
             </h2>
-            <p className="mt-6 text-lg leading-8 text-foreground-soft">
+            <p className="mt-6 max-w-md text-lg leading-8 text-foreground-soft">
               {whyUs.description}
             </p>
 
-            <div className="mt-10 flex items-start gap-5">
-              <div className="relative mt-1 h-28 w-px bg-white/10">
+            <div className="mt-10 hidden items-start gap-5 xl:flex">
+              <div className="relative mt-1 h-36 w-px bg-white/10">
                 <motion.span
                   className="absolute inset-x-0 top-0 h-full origin-top bg-white"
                   style={prefersReducedMotion ? undefined : { scaleY: progressScale }}
                 />
               </div>
-              <p className="font-mono text-[11px] tracking-[0.28em] text-muted-foreground uppercase">
+              <p className="vertical-label font-mono text-[10px] tracking-[0.32em] text-white/40 uppercase">
                 {whyUs.railLabel}
               </p>
             </div>
           </Reveal>
         </div>
 
-        <div className="border-t border-white/12">
+        <div className="xl:col-span-8 xl:pl-8">
           {whyUs.points.map((point, index) => (
             <Reveal
               className={cx(
-                "border-b border-white/10 py-8 sm:py-10",
+                "relative border-t border-white/12 py-8 sm:py-10",
                 rowOffsets[index],
               )}
               key={point.title}
-              x={index % 2 === 0 ? 42 : -42}
-              y={12}
+              x={index % 2 === 0 ? 40 : -40}
+              y={16}
             >
-              <article className="grid gap-5 sm:grid-cols-[88px_1fr] sm:gap-8">
-                <span className="font-mono text-[11px] tracking-[0.28em] text-white/78 uppercase">
+              <article className="grid gap-5 md:grid-cols-[88px_minmax(0,1fr)] md:gap-8">
+                <span className="font-mono text-[10px] tracking-[0.32em] text-white/46 uppercase">
                   {point.index}
                 </span>
 
-                <div>
-                  <h3 className="text-3xl leading-[1.05] font-medium tracking-[-0.06em] text-white sm:text-[2.2rem]">
+                <div className="relative overflow-hidden border border-white/10 bg-white/[0.02] px-6 py-6 sm:px-8 sm:py-8">
+                  <span className="editorial-outline pointer-events-none absolute right-4 top-3 text-6xl leading-none font-medium tracking-[-0.1em]">
+                    {point.index}
+                  </span>
+                  <h3 className="max-w-3xl text-[clamp(2rem,3vw,3.3rem)] leading-[0.95] font-medium tracking-[-0.08em] text-white">
                     {point.title}
                   </h3>
-                  <p className="mt-4 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
+                  <p className="mt-4 max-w-2xl text-base leading-8 text-foreground-soft sm:text-lg">
                     {point.description}
                   </p>
                 </div>
