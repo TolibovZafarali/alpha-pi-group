@@ -12,12 +12,15 @@ import {
 
 import { cx } from "@/lib/cx";
 
+const rightRearWheelX = 540;
+const frontWheelX = 602;
+
 const wheelCenters = [
   { x: 182, y: 232 },
   { x: 236, y: 232 },
   { x: 290, y: 232 },
-  { x: 548, y: 232 },
-  { x: 642, y: 232 },
+  { x: rightRearWheelX, y: 232 },
+  { x: frontWheelX, y: 232 },
 ] as const;
 
 type HeroTruckIllustrationProps = {
@@ -40,7 +43,7 @@ export function HeroTruckIllustration({
     mass: 0.28,
   });
 
-  const truckX = useTransform(smoothProgress, [0, 1], ["0%", "20%"]);
+  const truckX = useTransform(smoothProgress, [0, 1], ["0%", "60%"]);
   const wheelRotation = useTransform(smoothProgress, [0, 1], [0, 780]);
 
   return (
@@ -61,7 +64,7 @@ export function HeroTruckIllustration({
             "linear-gradient(90deg, transparent 0%, black 20%, black 88%, transparent 100%), linear-gradient(180deg, black 0%, black 82%, transparent 100%)",
         }}
       >
-        <div className="absolute bottom-[-2.75rem] left-[52%] w-[42rem] max-w-none -translate-x-1/2 sm:bottom-[-3.5rem] sm:w-[52rem] lg:bottom-[-4.25rem] lg:w-[62rem] xl:bottom-[-4.75rem] xl:w-[68rem]">
+        <div className="absolute bottom-[-1.875rem] left-[56%] w-[26rem] max-w-none -translate-x-1/2 sm:bottom-[-2.25rem] sm:w-[32rem] lg:bottom-[-2.75rem] lg:w-[38rem] xl:bottom-[-3rem] xl:w-[42rem]">
           <motion.svg
             className="h-auto w-full text-[#c0c6cf] opacity-[0.12] sm:opacity-[0.15] lg:opacity-[0.18]"
             fill="none"
@@ -110,7 +113,7 @@ export function HeroTruckIllustration({
                   height="15"
                   rx="7.5"
                   width="26"
-                  x="594"
+                  x={frontWheelX - 13}
                   y="214"
                 />
                 <rect
@@ -142,7 +145,7 @@ export function HeroTruckIllustration({
                   height="10"
                   rx="5"
                   width="46"
-                  x="525"
+                  x={rightRearWheelX - 23}
                   y="203"
                 />
                 <rect
@@ -150,7 +153,7 @@ export function HeroTruckIllustration({
                   height="10"
                   rx="5"
                   width="38"
-                  x="606"
+                  x={frontWheelX - 19}
                   y="203"
                 />
                 <path d="M568 92H603C616 92 626 97 633 106L643 121C651 133 655 146 655 159V212C655 223 647 232 636 232H568V92Z" />
