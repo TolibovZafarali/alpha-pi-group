@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+:root {
+  --background: #05070b;
+  --foreground: #f5efe4;
+  --muted-foreground: #a39b91;
+  --border: rgba(245, 239, 228, 0.12);
+  --surface: rgba(255, 255, 255, 0.03);
+  --surface-strong: rgba(255, 255, 255, 0.06);
+  --accent: #c6b08a;
+  --accent-strong: #e7d7b8;
+}
+
+@theme inline {
+  --font-sans: "Manrope", sans-serif;
+  --font-serif: "Cormorant Garamond", serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(198, 176, 138, 0.1), transparent 24%),
+    radial-gradient(circle at 80% 20%, rgba(90, 100, 112, 0.12), transparent 20%),
+    linear-gradient(180deg, #05070b 0%, #090c11 48%, #05070b 100%);
+  color: var(--foreground);
+  font-family: "Manrope", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgba(198, 176, 138, 0.28);
+  color: #fff9f0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
