@@ -37,19 +37,26 @@ export function Footer({
             ))}
           </nav>
 
-          <div className="space-y-2 text-sm text-muted-foreground">
-            <a
-              className="block transition hover:text-white"
-              href={contactDetails.email.href}
-            >
-              {contactDetails.email.value}
-            </a>
-            <a
-              className="block transition hover:text-white"
-              href={contactDetails.phone.href}
-            >
-              {contactDetails.phone.value}
-            </a>
+          <div className="grid gap-4 text-sm text-muted-foreground">
+            {contactDetails.operators.map((operator) => (
+              <div className="space-y-1" key={operator.email.href}>
+                <p className="font-mono text-[11px] tracking-[0.24em] text-white/58 uppercase">
+                  {operator.name}
+                </p>
+                <a
+                  className="block transition hover:text-white"
+                  href={operator.email.href}
+                >
+                  {operator.email.value}
+                </a>
+                <a
+                  className="block transition hover:text-white"
+                  href={operator.phone.href}
+                >
+                  {operator.phone.value}
+                </a>
+              </div>
+            ))}
           </div>
 
           <p className="text-sm text-muted-foreground">

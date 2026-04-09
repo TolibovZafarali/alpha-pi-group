@@ -159,35 +159,47 @@ export function HeroSection({ contactDetails, hero }: HeroSectionProps) {
             </div>
 
             <div className="mt-5 grid gap-3">
-              <a
-                className="group flex items-start gap-4 border-t border-white/10 pt-4 text-left transition hover:text-white"
-                href={contactDetails.email.href}
-              >
-                <Mail className="mt-1 h-4 w-4 text-white/72" />
-                <div>
-                  <p className="font-mono text-[11px] tracking-[0.26em] text-muted-foreground uppercase">
-                    {contactDetails.email.label}
+              {contactDetails.operators.map((operator) => (
+                <div
+                  className="border-t border-white/10 pt-4"
+                  key={operator.email.href}
+                >
+                  <p className="font-mono text-[11px] tracking-[0.28em] text-white/78 uppercase">
+                    {operator.name}
                   </p>
-                  <p className="mt-2 text-base text-foreground-soft transition group-hover:text-white">
-                    {contactDetails.email.value}
-                  </p>
-                </div>
-              </a>
+                  <div className="mt-3 grid gap-3">
+                    <a
+                      className="group flex items-start gap-4 text-left transition hover:text-white"
+                      href={operator.email.href}
+                    >
+                      <Mail className="mt-1 h-4 w-4 text-white/72" />
+                      <div>
+                        <p className="font-mono text-[11px] tracking-[0.26em] text-muted-foreground uppercase">
+                          {operator.email.label}
+                        </p>
+                        <p className="mt-2 text-base text-foreground-soft transition group-hover:text-white">
+                          {operator.email.value}
+                        </p>
+                      </div>
+                    </a>
 
-              <a
-                className="group flex items-start gap-4 border-t border-white/10 pt-4 text-left transition hover:text-white"
-                href={contactDetails.phone.href}
-              >
-                <PhoneCall className="mt-1 h-4 w-4 text-white/72" />
-                <div>
-                  <p className="font-mono text-[11px] tracking-[0.26em] text-muted-foreground uppercase">
-                    {contactDetails.phone.label}
-                  </p>
-                  <p className="mt-2 text-base text-foreground-soft transition group-hover:text-white">
-                    {contactDetails.phone.value}
-                  </p>
+                    <a
+                      className="group flex items-start gap-4 text-left transition hover:text-white"
+                      href={operator.phone.href}
+                    >
+                      <PhoneCall className="mt-1 h-4 w-4 text-white/72" />
+                      <div>
+                        <p className="font-mono text-[11px] tracking-[0.26em] text-muted-foreground uppercase">
+                          {operator.phone.label}
+                        </p>
+                        <p className="mt-2 text-base text-foreground-soft transition group-hover:text-white">
+                          {operator.phone.value}
+                        </p>
+                      </div>
+                    </a>
+                  </div>
                 </div>
-              </a>
+              ))}
             </div>
           </Reveal>
         </motion.div>

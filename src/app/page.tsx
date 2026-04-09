@@ -17,7 +17,7 @@ export default function Home() {
       </div>
 
       <Header
-        ctaHref={siteContent.contact.primaryAction.href}
+        ctaHref="#contact"
         navigation={siteContent.navigation}
       />
 

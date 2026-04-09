@@ -1,17 +1,35 @@
 export const siteContent = {
   companyName: "Alpha-Pi Group",
   contactDetails: {
-    email: {
-      label: "Business email",
-      value: "business@alphapigroup.com",
-      href: "mailto:business@alphapigroup.com",
-    },
-    phone: {
-      label: "Business phone",
-      value: "(000) 000-0000",
-      href: "tel:+10000000000",
-    },
-    note: "Replace the placeholder email and phone number with live business contact details before launch.",
+    operators: [
+      {
+        name: "Aiden Wilson",
+        email: {
+          label: "Email",
+          value: "aiden@alphapigroup.com",
+          href: "mailto:aiden@alphapigroup.com",
+        },
+        phone: {
+          label: "Phone",
+          value: "(314) 266-4949",
+          href: "tel:+13142664949",
+        },
+      },
+      {
+        name: "Alvyn Reed",
+        email: {
+          label: "Email",
+          value: "alvyn@alphapigroup.com",
+          href: "mailto:alvyn@alphapigroup.com",
+        },
+        phone: {
+          label: "Phone",
+          value: "(314) 254-3399",
+          href: "tel:+13142543399",
+        },
+      },
+    ],
+    note: "Alpha-Pi Group is run directly by Aiden Wilson and Alvyn Reed.",
   },
   navigation: [
     { label: "About", href: "#about" },
@@ -30,8 +48,8 @@ export const siteContent = {
     description:
       "Alpha-Pi Group helps transportation businesses recruit drivers, manage communication, and move with a cleaner operational rhythm from first contact to ongoing coordination.",
     primaryAction: {
-      label: "Start a Conversation",
-      href: "mailto:business@alphapigroup.com",
+      label: "View Contacts",
+      href: "#contact",
     },
     secondaryAction: {
       label: "Explore Services",
@@ -67,7 +85,7 @@ export const siteContent = {
     title:
       "A more disciplined front end for transportation businesses that want to look established.",
     lead:
-      "Alpha-Pi Group supports carriers with recruiting and communication systems that feel current, responsive, and serious.",
+      "Alpha-Pi Group is run directly by Aiden Wilson and Alvyn Reed, supporting carriers with recruiting and communication systems that feel current, responsive, and serious.",
     manifesto: [
       "The business is built around direct contact, fast follow-through, and a cleaner experience for drivers, carrier teams, and partners.",
       "Instead of adding noise, the focus stays on execution: clearer outreach, tighter coordination, and a workflow that reflects a company operating with intent.",
@@ -183,17 +201,17 @@ export const siteContent = {
     eyebrow: "Contact",
     title: "If the business needs to move with more control, start here.",
     description:
-      "Reach out directly for recruiting support, carrier coordination, or operational conversations. The current email and phone remain placeholders until launch.",
+      "Reach out directly to Aiden Wilson or Alvyn Reed for recruiting support, carrier coordination, or operational conversations.",
     primaryAction: {
-      label: "Email Alpha-Pi Group",
-      href: "mailto:business@alphapigroup.com",
+      label: "Email Aiden",
+      href: "mailto:aiden@alphapigroup.com",
     },
     secondaryAction: {
-      label: "Call the Office",
-      href: "tel:+10000000000",
+      label: "Email Alvyn",
+      href: "mailto:alvyn@alphapigroup.com",
     },
     availability:
-      "Open to recruiting support, carrier partnerships, and business operations conversations.",
+      "Aiden Wilson and Alvyn Reed handle recruiting support, carrier partnerships, and business operations conversations directly.",
   },
   footer: {
     note: "Modern recruiting and carrier support for transportation businesses that prefer a cleaner standard.",
