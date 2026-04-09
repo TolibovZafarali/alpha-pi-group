@@ -12,12 +12,12 @@ type HeroSectionProps = {
 export function HeroSection({ hero }: HeroSectionProps) {
   return (
     <section
-      className="relative isolate overflow-hidden border-b border-white/10 pb-20 pt-28 sm:pb-24 sm:pt-32 lg:pb-28 lg:pt-36"
+      className="relative isolate flex min-h-screen min-h-dvh items-center overflow-hidden border-b border-white/10 pb-20 pt-[calc(var(--site-header-height)+3rem)] sm:pb-24 sm:pt-[calc(var(--site-header-height)+3.5rem)] lg:pb-28 lg:pt-[calc(var(--site-header-height)+4rem)]"
       id="top"
     >
       <HeroTruckIllustration />
 
-      <Container className="relative z-10">
+      <Container className="relative z-10 w-full">
         <div className="max-w-4xl">
           <Reveal>
             <p className="font-mono text-[10px] tracking-[0.3em] text-white/52 uppercase">

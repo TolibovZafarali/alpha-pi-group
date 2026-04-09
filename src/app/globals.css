@@ -10,6 +10,7 @@
   --border-strong: rgba(255, 255, 255, 0.24);
   --surface: rgba(255, 255, 255, 0.03);
   --surface-strong: rgba(255, 255, 255, 0.09);
+  --site-header-height: 72px;
 }
 
 @theme inline {

@@ -8,8 +8,11 @@ type AboutSectionProps = {
 
 export function AboutSection({ about }: AboutSectionProps) {
   return (
-    <section className="scroll-mt-24 border-b border-white/10 py-20 sm:py-24 lg:py-28" id="about">
-      <Container>
+    <section
+      className="scroll-mt-[calc(var(--site-header-height)+1.5rem)] flex min-h-screen min-h-dvh items-center border-b border-white/10 py-20 sm:py-24 lg:py-28"
+      id="about"
+    >
+      <Container className="w-full">
         <Reveal className="max-w-3xl">
           <p className="font-mono text-[10px] tracking-[0.3em] text-white/52 uppercase">
             {about.eyebrow}
