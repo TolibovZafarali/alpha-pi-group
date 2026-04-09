@@ -8,12 +8,14 @@ type FooterProps = {
 };
 
 export function Footer({ companyName, footer, navigation }: FooterProps) {
+  const footerCompanyName = `${companyName} LLC`;
+
   return (
     <footer className="border-t border-white/10 py-8 sm:py-10">
       <Container className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div className="max-w-xl">
           <p className="font-mono text-[10px] tracking-[0.3em] text-white/46 uppercase">
-            {companyName}
+            {footerCompanyName}
           </p>
           <p className="mt-3 text-sm leading-6 text-white/64 sm:text-base">
             {footer.note}
@@ -34,7 +36,7 @@ export function Footer({ companyName, footer, navigation }: FooterProps) {
           </nav>
 
           <p className="font-mono text-[10px] tracking-[0.24em] text-white/38 uppercase">
-            © {new Date().getFullYear()} {companyName}
+            © {new Date().getFullYear()} {footerCompanyName}
           </p>
         </div>
       </Container>
