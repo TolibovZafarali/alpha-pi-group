@@ -12,20 +12,30 @@ export default function Home() {
       <Header ctaHref="#contact" navigation={siteContent.navigation} />
 
       <main className="relative">
-        <HeroSection hero={siteContent.hero} />
-        <ServicesSection services={siteContent.services} />
-        <AboutSection about={siteContent.about} />
-        <ContactCtaSection
-          contact={siteContent.contact}
-          contactDetails={siteContent.contactDetails}
-        />
+        <div data-scroll-theme="dark">
+          <HeroSection hero={siteContent.hero} />
+        </div>
+        <div data-scroll-theme="light">
+          <ServicesSection services={siteContent.services} />
+        </div>
+        <div data-scroll-theme="dark">
+          <AboutSection about={siteContent.about} />
+        </div>
+        <div data-scroll-theme="light">
+          <ContactCtaSection
+            contact={siteContent.contact}
+            contactDetails={siteContent.contactDetails}
+          />
+        </div>
       </main>
 
-      <Footer
-        companyName={siteContent.companyName}
-        footer={siteContent.footer}
-        navigation={siteContent.navigation}
-      />
+      <div data-scroll-theme="dark">
+        <Footer
+          companyName={siteContent.companyName}
+          footer={siteContent.footer}
+          navigation={siteContent.navigation}
+        />
+      </div>
     </div>
   );
 }

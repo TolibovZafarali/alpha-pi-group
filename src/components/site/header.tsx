@@ -1,13 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import { AnimatePresence, motion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+} from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 import { ButtonLink } from "@/components/ui/button-link";
 import { BrandLogo } from "@/components/ui/brand-logo";
 import { Container } from "@/components/ui/container";
+import { cx } from "@/lib/cx";
 
 type NavigationItem = {
   href: string;
@@ -21,11 +28,65 @@ type HeaderProps = {
 
 export function Header({ ctaHref, navigation }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrollTheme, setScrollTheme] = useState<"dark" | "light">("dark");
+  const headerRef = useRef<HTMLElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  const smoothScrollYProgress = useSpring(scrollYProgress, {
+    stiffness: 170,
+    damping: 26,
+    mass: 0.28,
+  });
 
   const closeMenu = () => setIsOpen(false);
+  const progress = prefersReducedMotion
+    ? scrollYProgress
+    : smoothScrollYProgress;
+
+  useEffect(() => {
+    let frameId = 0;
+
+    const updateScrollTheme = () => {
+      const headerBottom = headerRef.current?.getBoundingClientRect().bottom ?? 0;
+      const sampleX = window.innerWidth / 2;
+      const sampleY = Math.min(
+        Math.max(headerBottom + 1, 0),
+        window.innerHeight - 1,
+      );
+      const theme =
+        document
+          .elementFromPoint(sampleX, sampleY)
+          ?.closest<HTMLElement>("[data-scroll-theme]")
+          ?.dataset.scrollTheme === "light"
+          ? "light"
+          : "dark";
+
+      setScrollTheme((currentTheme) =>
+        currentTheme === theme ? currentTheme : theme,
+      );
+    };
+
+    const scheduleThemeUpdate = () => {
+      cancelAnimationFrame(frameId);
+      frameId = window.requestAnimationFrame(updateScrollTheme);
+    };
+
+    scheduleThemeUpdate();
+    window.addEventListener("scroll", scheduleThemeUpdate, { passive: true });
+    window.addEventListener("resize", scheduleThemeUpdate);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("scroll", scheduleThemeUpdate);
+      window.removeEventListener("resize", scheduleThemeUpdate);
+    };
+  }, [isOpen]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur-md">
+    <header
+      className="fixed inset-x-0 top-0 z-50 bg-black/80 backdrop-blur-md"
+      ref={headerRef}
+    >
       <Container className="flex items-center justify-between gap-5 py-4">
         <a
           className="min-w-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-background"
@@ -104,6 +165,24 @@ export function Header({ ctaHref, navigation }: HeaderProps) {
           </motion.div>
         ) : null}
       </AnimatePresence>
+
+      <div
+        aria-hidden="true"
+        className={cx(
+          "pointer-events-none absolute inset-x-0 -bottom-px z-[1] h-[2px] overflow-hidden transition-colors duration-300",
+          scrollTheme === "light" ? "bg-black/12" : "bg-white/12",
+        )}
+      >
+        <motion.div
+          className={cx(
+            "h-full origin-left transition-colors duration-300",
+            scrollTheme === "light"
+              ? "bg-black shadow-[0_0_10px_rgba(0,0,0,0.18)]"
+              : "bg-white shadow-[0_0_12px_rgba(255,255,255,0.42)]",
+          )}
+          style={{ scaleX: progress }}
+        />
+      </div>
     </header>
   );
 }
