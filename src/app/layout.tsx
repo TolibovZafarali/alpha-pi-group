@@ -7,9 +7,13 @@ import "@fontsource/space-grotesk/700.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Alpha-Pi Group | Driver Recruiting and Carrier Support",
+  title: "Alpha-Pi Group",
   description:
     "Alpha-Pi Group provides driver recruiting, carrier support, and professional business communication for transportation businesses.",
+  icons: {
+    icon: "/alpha-pi-logo-white.svg",
+    shortcut: "/alpha-pi-logo-white.svg",
+  },
 };
 
 export default function RootLayout({
