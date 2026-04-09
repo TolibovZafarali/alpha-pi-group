@@ -3,14 +3,21 @@ import { Container } from "@/components/ui/container";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/ui/reveal";
 import type { SiteContent } from "@/content/site";
 
+import { HeroTruckIllustration } from "@/components/site/hero-truck-illustration";
+
 type HeroSectionProps = {
   hero: SiteContent["hero"];
 };
 
 export function HeroSection({ hero }: HeroSectionProps) {
   return (
-    <section className="border-b border-white/10 pb-20 pt-28 sm:pb-24 sm:pt-32 lg:pb-28 lg:pt-36" id="top">
-      <Container>
+    <section
+      className="relative isolate overflow-hidden border-b border-white/10 pb-20 pt-28 sm:pb-24 sm:pt-32 lg:pb-28 lg:pt-36"
+      id="top"
+    >
+      <HeroTruckIllustration />
+
+      <Container className="relative z-10">
         <div className="max-w-4xl">
           <Reveal>
             <p className="font-mono text-[10px] tracking-[0.3em] text-white/52 uppercase">
