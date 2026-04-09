@@ -14,7 +14,6 @@ type RevealProps = {
   className?: string;
   delay?: number;
   once?: boolean;
-  scale?: number;
   x?: number;
   y?: number;
 };
@@ -25,21 +24,18 @@ export function Reveal({
   className,
   delay = 0,
   once = true,
-  scale = 0.98,
   x = 0,
-  y = 28,
+  y = 18,
 }: RevealProps) {
   const prefersReducedMotion = useReducedMotion();
 
   return (
     <motion.div
       className={cx(className)}
-      initial={
-        prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scale, x, y }
-      }
-      transition={{ duration: prefersReducedMotion ? 0.35 : 0.8, delay, ease }}
+      initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x, y }}
+      transition={{ duration: prefersReducedMotion ? 0.24 : 0.55, delay, ease }}
       viewport={{ amount, once }}
-      whileInView={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
     >
       {children}
     </motion.div>
@@ -50,20 +46,19 @@ const groupVariants: Variants = {
   hidden: {},
   visible: {
     transition: {
-      delayChildren: 0.08,
-      staggerChildren: 0.1,
+      delayChildren: 0.04,
+      staggerChildren: 0.06,
     },
   },
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20, scale: 0.98 },
+  hidden: { opacity: 0, y: 14 },
   visible: {
     opacity: 1,
     y: 0,
-    scale: 1,
     transition: {
-      duration: 0.7,
+      duration: 0.48,
       ease,
     },
   },

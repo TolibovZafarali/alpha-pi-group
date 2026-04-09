@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import {
   AnimatePresence,
   motion,
-  useMotionValueEvent,
   useReducedMotion,
   useScroll,
+  useSpring,
 } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
@@ -28,94 +28,122 @@ type HeaderProps = {
 
 export function Header({ ctaHref, navigation }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isCondensed, setIsCondensed] = useState(false);
+  const [scrollTheme, setScrollTheme] = useState<"dark" | "light">("dark");
+  const headerRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
-  const { scrollY } = useScroll();
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setIsCondensed(latest > 24);
+  const { scrollYProgress } = useScroll();
+  const smoothScrollYProgress = useSpring(scrollYProgress, {
+    stiffness: 170,
+    damping: 26,
+    mass: 0.28,
   });
 
   const closeMenu = () => setIsOpen(false);
+  const progress = prefersReducedMotion
+    ? scrollYProgress
+    : smoothScrollYProgress;
+
+  useEffect(() => {
+    let frameId = 0;
+
+    const updateScrollTheme = () => {
+      const headerBottom = headerRef.current?.getBoundingClientRect().bottom ?? 0;
+      const sampleX = window.innerWidth / 2;
+      const sampleY = Math.min(
+        Math.max(headerBottom + 1, 0),
+        window.innerHeight - 1,
+      );
+      const theme =
+        document
+          .elementFromPoint(sampleX, sampleY)
+          ?.closest<HTMLElement>("[data-scroll-theme]")
+          ?.dataset.scrollTheme === "light"
+          ? "light"
+          : "dark";
+
+      setScrollTheme((currentTheme) =>
+        currentTheme === theme ? currentTheme : theme,
+      );
+    };
+
+    const scheduleThemeUpdate = () => {
+      cancelAnimationFrame(frameId);
+      frameId = window.requestAnimationFrame(updateScrollTheme);
+    };
+
+    scheduleThemeUpdate();
+    window.addEventListener("scroll", scheduleThemeUpdate, { passive: true });
+    window.addEventListener("resize", scheduleThemeUpdate);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("scroll", scheduleThemeUpdate);
+      window.removeEventListener("resize", scheduleThemeUpdate);
+    };
+  }, [isOpen]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
-      <motion.div
-        animate={
-          isCondensed
-            ? {
-                backgroundColor: "rgba(5, 5, 5, 0.88)",
-                borderColor: "rgba(255, 255, 255, 0.12)",
-              }
-            : {
-                backgroundColor: "rgba(5, 5, 5, 0.14)",
-                borderColor: "rgba(255, 255, 255, 0.04)",
-              }
-        }
-        className="border-b backdrop-blur-xl"
-        transition={{
-          duration: prefersReducedMotion ? 0.2 : 0.45,
-          ease: [0.16, 1, 0.3, 1],
-        }}
-      >
-        <Container className="flex items-center justify-between gap-6 py-4">
-          <a
-            className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            href="#top"
-          >
-            <BrandLogo className="w-[132px] sm:w-[152px]" priority />
-          </a>
+    <header
+      className="fixed inset-x-0 top-0 z-50 bg-black/80 backdrop-blur-md"
+      ref={headerRef}
+    >
+      <Container className="flex items-center justify-between gap-5 py-4">
+        <a
+          className="min-w-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          href="#top"
+          onClick={closeMenu}
+        >
+          <span className="flex items-center gap-3">
+            <BrandLogo className="w-8 sm:w-9" priority />
+            <span className="font-mono text-[11px] tracking-[0.24em] text-white uppercase">
+              Alpha-Pi Group
+            </span>
+          </span>
+        </a>
 
-          <nav className="hidden items-center gap-7 xl:flex">
-            {navigation.map((item) => (
-              <a
-                className="font-mono text-[11px] tracking-[0.28em] text-muted-foreground uppercase transition hover:text-white focus-visible:outline-none focus-visible:text-white"
-                href={item.href}
-                key={item.href}
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
+        <nav className="hidden items-center gap-8 md:flex">
+          {navigation.map((item) => (
+            <a
+              className="font-mono text-[11px] tracking-[0.24em] text-white/72 uppercase transition-colors duration-200 hover:text-white"
+              href={item.href}
+              key={item.href}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
 
-          <div className="hidden items-center gap-4 xl:flex">
-            <ButtonLink href={ctaHref}>Contact</ButtonLink>
-          </div>
+        <div className="hidden md:block">
+          <ButtonLink href={ctaHref}>Contact</ButtonLink>
+        </div>
 
-          <button
-            aria-controls="mobile-navigation"
-            aria-expanded={isOpen}
-            aria-label={isOpen ? "Close navigation" : "Open navigation"}
-            className={cx(
-              "inline-flex h-11 w-11 items-center justify-center border text-white transition hover:bg-white/6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white xl:hidden",
-              isCondensed ? "border-white/14 bg-white/[0.03]" : "border-white/10 bg-black/10",
-            )}
-            onClick={() => setIsOpen((open) => !open)}
-            type="button"
-          >
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-        </Container>
-      </motion.div>
+        <button
+          aria-controls="mobile-navigation"
+          aria-expanded={isOpen}
+          aria-label={isOpen ? "Close navigation" : "Open navigation"}
+          className="inline-flex h-10 w-10 items-center justify-center border border-white/12 text-white transition-colors duration-200 hover:bg-white hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white md:hidden"
+          onClick={() => setIsOpen((open) => !open)}
+          type="button"
+        >
+          {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+        </button>
+      </Container>
 
       <AnimatePresence>
         {isOpen ? (
           <motion.div
             animate={{ opacity: 1, y: 0 }}
-            className="border-b border-white/10 bg-black/95 backdrop-blur-2xl xl:hidden"
-            exit={{ opacity: 0, y: -14 }}
+            className="border-t border-white/10 bg-black md:hidden"
+            exit={{ opacity: 0, y: -8 }}
             id="mobile-navigation"
-            initial={{ opacity: 0, y: -14 }}
-            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
           >
-            <Container className="pb-8 pt-4">
-              <div className="border-t border-white/10 pt-6">
-                {navigation.map((item, index) => (
+            <Container className="grid gap-6 py-6">
+              <nav className="grid gap-4">
+                {navigation.map((item) => (
                   <a
-                    className={cx(
-                      "block border-b border-white/10 py-5 text-3xl tracking-[-0.06em] text-white transition hover:text-foreground-soft",
-                      index === 0 && "border-t border-white/10",
-                    )}
+                    className="font-mono text-[12px] tracking-[0.24em] text-white uppercase transition-colors duration-200 hover:text-white/72"
                     href={item.href}
                     key={item.href}
                     onClick={closeMenu}
@@ -123,17 +151,38 @@ export function Header({ ctaHref, navigation }: HeaderProps) {
                     {item.label}
                   </a>
                 ))}
-              </div>
+              </nav>
 
-              <div className="mt-6 flex flex-col gap-4">
-                <ButtonLink className="justify-center" href={ctaHref}>
-                  Contact
-                </ButtonLink>
-              </div>
+              <ButtonLink
+                className="justify-center"
+                href={ctaHref}
+                icon="none"
+                onClick={closeMenu}
+              >
+                Contact
+              </ButtonLink>
             </Container>
           </motion.div>
         ) : null}
       </AnimatePresence>
+
+      <div
+        aria-hidden="true"
+        className={cx(
+          "pointer-events-none absolute inset-x-0 -bottom-px z-[1] h-[2px] overflow-hidden transition-colors duration-300",
+          scrollTheme === "light" ? "bg-black/12" : "bg-white/12",
+        )}
+      >
+        <motion.div
+          className={cx(
+            "h-full origin-left transition-colors duration-300",
+            scrollTheme === "light"
+              ? "bg-black shadow-[0_0_10px_rgba(0,0,0,0.18)]"
+              : "bg-white shadow-[0_0_12px_rgba(255,255,255,0.42)]",
+          )}
+          style={{ scaleX: progress }}
+        />
+      </div>
     </header>
   );
 }
