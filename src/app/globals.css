@@ -1,27 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  --background: #05070b;
-  --foreground: #f5efe4;
-  --muted-foreground: #a39b91;
-  --border: rgba(245, 239, 228, 0.12);
-  --surface: rgba(255, 255, 255, 0.03);
+  --background: #020202;
+  --background-elevated: #090909;
+  --foreground: #f5f5f5;
+  --foreground-soft: #d7d7d7;
+  --muted-foreground: #8d8d8d;
+  --border: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.22);
+  --surface: rgba(255, 255, 255, 0.025);
   --surface-strong: rgba(255, 255, 255, 0.06);
-  --accent: #c6b08a;
-  --accent-strong: #e7d7b8;
 }
 
 @theme inline {
-  --font-sans: "Manrope", sans-serif;
-  --font-serif: "Cormorant Garamond", serif;
+  --font-sans: "Space Grotesk", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
   --color-background: var(--background);
+  --color-background-elevated: var(--background-elevated);
   --color-foreground: var(--foreground);
+  --color-foreground-soft: var(--foreground-soft);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-surface: var(--surface);
   --color-surface-strong: var(--surface-strong);
-  --color-accent: var(--accent);
-  --color-accent-strong: var(--accent-strong);
 }
 
 * {
@@ -30,17 +32,54 @@
 
 html {
   scroll-behavior: smooth;
+  background: var(--background);
 }
 
 body {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top, rgba(198, 176, 138, 0.1), transparent 24%),
-    radial-gradient(circle at 80% 20%, rgba(90, 100, 112, 0.12), transparent 20%),
-    linear-gradient(180deg, #05070b 0%, #090c11 48%, #05070b 100%);
+    radial-gradient(circle at 18% 0%, rgba(255, 255, 255, 0.11), transparent 32%),
+    radial-gradient(circle at 82% 16%, rgba(255, 255, 255, 0.06), transparent 24%),
+    linear-gradient(180deg, #020202 0%, #060606 48%, #020202 100%);
   color: var(--foreground);
-  font-family: "Manrope", sans-serif;
+  font-family: "Space Grotesk", sans-serif;
   text-rendering: optimizeLegibility;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.16) 30%,
+    rgba(0, 0, 0, 0.08) 100%
+  );
+  opacity: 0.22;
+  z-index: -2;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0) 18%,
+      rgba(255, 255, 255, 0) 82%,
+      rgba(255, 255, 255, 0.04)
+    );
+  opacity: 0.2;
+  z-index: -1;
 }
 
 a,
@@ -49,8 +88,8 @@ button {
 }
 
 ::selection {
-  background: rgba(198, 176, 138, 0.28);
-  color: #fff9f0;
+  background: rgba(255, 255, 255, 0.88);
+  color: #050505;
 }
 
 @media (prefers-reduced-motion: reduce) {

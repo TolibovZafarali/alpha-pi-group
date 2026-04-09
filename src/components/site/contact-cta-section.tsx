@@ -1,9 +1,13 @@
+"use client";
+
+import { useRef } from "react";
+
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { Mail, PhoneCall } from "lucide-react";
 
 import { ButtonLink } from "@/components/ui/button-link";
-import { BrandLogo } from "@/components/ui/brand-logo";
+import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
-import { SectionShell } from "@/components/ui/section-shell";
 import type { SiteContent } from "@/content/site";
 
 type ContactCtaSectionProps = {
@@ -17,147 +21,108 @@ export function ContactCtaSection({
   contact,
   contactDetails,
 }: ContactCtaSectionProps) {
+  const ref = useRef<HTMLElement | null>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  const watermarkY = useTransform(scrollYProgress, [0, 1], [50, -40]);
+  const asideY = useTransform(scrollYProgress, [0, 1], [0, -28]);
+
   return (
-    <SectionShell className="pb-20 sm:pb-24" id="contact">
-      <Reveal>
-        <div className="relative overflow-hidden rounded-[36px] border border-white/10 bg-white/[0.04] p-6 shadow-[0_30px_90px_rgba(0,0,0,0.24)] backdrop-blur-md sm:p-8 lg:p-10">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(198,176,138,0.18),_transparent_38%)]" />
-          <div className="relative grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.86fr)] lg:items-start">
-            <div className="max-w-2xl">
-              <p className="text-xs font-semibold tracking-[0.3em] text-accent uppercase">
+    <section className="scroll-mt-28 py-24 sm:py-28 lg:py-32" id="contact" ref={ref}>
+      <Container className="relative overflow-hidden border border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))] px-6 py-8 sm:px-8 sm:py-10 lg:px-10 lg:py-12">
+        <motion.span
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-4 left-4 text-[clamp(4.5rem,16vw,11rem)] leading-none font-medium tracking-[-0.12em] text-white/[0.04] uppercase"
+          style={prefersReducedMotion ? undefined : { y: watermarkY }}
+        >
+          Alpha-Pi
+        </motion.span>
+
+        <div className="relative grid gap-14 lg:grid-cols-[minmax(0,0.62fr)_minmax(280px,0.38fr)] lg:gap-10">
+          <div>
+            <Reveal className="max-w-4xl">
+              <p className="font-mono text-[11px] tracking-[0.3em] text-white/78 uppercase">
                 {contact.eyebrow}
               </p>
-              <h2 className="mt-5 text-4xl font-semibold tracking-[-0.05em] text-foreground sm:text-5xl">
+              <h2 className="mt-5 text-4xl leading-[0.96] font-medium tracking-[-0.08em] text-white sm:text-5xl lg:text-[4.75rem]">
                 {contact.title}
               </h2>
-              <p className="mt-5 text-lg leading-8 text-muted-foreground">
+              <p className="mt-6 max-w-2xl text-lg leading-8 text-foreground-soft sm:text-xl sm:leading-9">
                 {contact.description}
               </p>
+            </Reveal>
 
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            <Reveal
+              className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center"
+              delay={0.12}
+            >
+              <ButtonLink href={contact.primaryAction.href}>
+                {contact.primaryAction.label}
+              </ButtonLink>
+              <ButtonLink href={contact.secondaryAction.href} variant="secondary">
+                {contact.secondaryAction.label}
+              </ButtonLink>
+            </Reveal>
+          </div>
+
+          <motion.div
+            className="grid gap-4 self-end lg:pl-8"
+            style={prefersReducedMotion ? undefined : { y: asideY }}
+          >
+            <Reveal className="border-t border-white/12 pt-6" delay={0.16}>
+              <p className="font-mono text-[11px] tracking-[0.28em] text-muted-foreground uppercase">
+                Direct contact
+              </p>
+
+              <div className="mt-5 grid gap-5">
                 <a
-                  className="rounded-[24px] border border-white/10 bg-black/10 p-5 transition hover:border-white/16 hover:bg-black/15"
+                  className="group flex items-start gap-4 border-b border-white/10 pb-5 transition hover:text-white"
                   href={contactDetails.email.href}
                 >
-                  <div className="flex items-center gap-3 text-xs font-semibold tracking-[0.18em] text-accent uppercase">
-                    <Mail className="h-4 w-4" />
-                    {contactDetails.email.label}
+                  <Mail className="mt-1 h-4 w-4 text-white/72" />
+                  <div>
+                    <p className="font-mono text-[11px] tracking-[0.26em] text-muted-foreground uppercase">
+                      {contactDetails.email.label}
+                    </p>
+                    <p className="mt-2 text-base text-foreground-soft transition group-hover:text-white">
+                      {contactDetails.email.value}
+                    </p>
                   </div>
-                  <p className="mt-3 text-base font-medium text-foreground">
-                    {contactDetails.email.value}
-                  </p>
                 </a>
+
                 <a
-                  className="rounded-[24px] border border-white/10 bg-black/10 p-5 transition hover:border-white/16 hover:bg-black/15"
+                  className="group flex items-start gap-4 border-b border-white/10 pb-5 transition hover:text-white"
                   href={contactDetails.phone.href}
                 >
-                  <div className="flex items-center gap-3 text-xs font-semibold tracking-[0.18em] text-accent uppercase">
-                    <PhoneCall className="h-4 w-4" />
-                    {contactDetails.phone.label}
+                  <PhoneCall className="mt-1 h-4 w-4 text-white/72" />
+                  <div>
+                    <p className="font-mono text-[11px] tracking-[0.26em] text-muted-foreground uppercase">
+                      {contactDetails.phone.label}
+                    </p>
+                    <p className="mt-2 text-base text-foreground-soft transition group-hover:text-white">
+                      {contactDetails.phone.value}
+                    </p>
                   </div>
-                  <p className="mt-3 text-base font-medium text-foreground">
-                    {contactDetails.phone.value}
-                  </p>
                 </a>
               </div>
 
-              <p className="mt-5 text-sm leading-7 text-muted-foreground">
+              <p className="mt-6 text-base leading-8 text-foreground-soft">
+                {contact.availability}
+              </p>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">
                 {contactDetails.note}
               </p>
-
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <ButtonLink href={contact.primaryAction.href}>
-                  {contact.primaryAction.label}
-                </ButtonLink>
-                <ButtonLink
-                  href={contact.secondaryAction.href}
-                  icon="arrow-right"
-                  variant="secondary"
-                >
-                  {contact.secondaryAction.label}
-                </ButtonLink>
-              </div>
-            </div>
-
-            <div className="rounded-[30px] border border-white/10 bg-[#0b0f16] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.22)]">
-              <div className="inline-flex rounded-[22px] bg-[#efe6d8] px-5 py-4 shadow-[0_18px_40px_rgba(0,0,0,0.18)]">
-                <BrandLogo className="w-[170px]" variant="dark" />
-              </div>
-              <div className="mt-6">
-                <p className="text-xs font-semibold tracking-[0.2em] text-accent uppercase">
-                  Inquiry Form
-                </p>
-                <h3 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-foreground">
-                  Frontend contact form preview
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                  A polished contact form UI for business inquiries. Connect the
-                  submission flow later if needed.
-                </p>
-              </div>
-
-              <form className="mt-6 space-y-4">
-                <label className="block">
-                  <span className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
-                    Name
-                  </span>
-                  <input
-                    className="mt-2 w-full rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground/70 focus:border-accent/40 focus:bg-white/[0.05]"
-                    placeholder="Your name"
-                    type="text"
-                  />
-                </label>
-                <label className="block">
-                  <span className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
-                    Company
-                  </span>
-                  <input
-                    className="mt-2 w-full rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground/70 focus:border-accent/40 focus:bg-white/[0.05]"
-                    placeholder="Carrier or company name"
-                    type="text"
-                  />
-                </label>
-                <label className="block">
-                  <span className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
-                    Email
-                  </span>
-                  <input
-                    className="mt-2 w-full rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground/70 focus:border-accent/40 focus:bg-white/[0.05]"
-                    placeholder="name@company.com"
-                    type="email"
-                  />
-                </label>
-                <label className="block">
-                  <span className="text-xs font-semibold tracking-[0.18em] text-muted-foreground uppercase">
-                    Message
-                  </span>
-                  <textarea
-                    className="mt-2 min-h-32 w-full rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground/70 focus:border-accent/40 focus:bg-white/[0.05]"
-                    placeholder="Tell us what you need help with."
-                  />
-                </label>
-
-                <button
-                  className="inline-flex w-full items-center justify-center rounded-full border border-accent/30 bg-accent px-5 py-3 text-sm font-semibold tracking-[0.16em] text-[#111317] uppercase shadow-[0_14px_36px_rgba(198,176,138,0.18)] transition duration-300 hover:-translate-y-0.5 hover:bg-accent-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                  type="button"
-                >
-                  Send Inquiry
-                </button>
-
-                <p className="text-xs leading-6 text-muted-foreground">
-                  UI only. Connect form submission when live inquiry handling is
-                  ready.
-                </p>
-              </form>
-
-              <p className="mt-6 text-sm leading-7 text-muted-foreground">
-                {companyName} is positioned to feel direct, organized, and
-                legitimate from first contact.
+              <p className="mt-6 font-mono text-[11px] tracking-[0.28em] text-white/52 uppercase">
+                {companyName}
               </p>
-            </div>
-          </div>
+            </Reveal>
+          </motion.div>
         </div>
-      </Reveal>
-    </SectionShell>
+      </Container>
+    </section>
   );
 }

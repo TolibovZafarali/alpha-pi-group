@@ -1,18 +1,15 @@
 import type { Metadata } from "next";
 
-import "@fontsource/cormorant-garamond/500.css";
-import "@fontsource/cormorant-garamond/600.css";
-import "@fontsource/cormorant-garamond/700.css";
-import "@fontsource/manrope/500.css";
-import "@fontsource/manrope/600.css";
-import "@fontsource/manrope/700.css";
-import "@fontsource/manrope/800.css";
+import "@fontsource/ibm-plex-mono/500.css";
+import "@fontsource/space-grotesk/400.css";
+import "@fontsource/space-grotesk/500.css";
+import "@fontsource/space-grotesk/700.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Alpha-Pi Group | Driver Recruiting and Carrier Support",
+  title: "Alpha-Pi Group | Editorial Recruiting and Carrier Support",
   description:
-    "Alpha-Pi Group provides modern driver recruiting and carrier support for transportation businesses through direct communication and a professional workflow.",
+    "Alpha-Pi Group provides driver recruiting and carrier support for transportation businesses through direct communication, disciplined workflow, and premium business presentation.",
 };
 
 export default function RootLayout({

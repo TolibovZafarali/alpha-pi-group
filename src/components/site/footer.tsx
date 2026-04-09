@@ -1,6 +1,3 @@
-import { Mail, PhoneCall } from "lucide-react";
-
-import { BrandLogo } from "@/components/ui/brand-logo";
 import { Container } from "@/components/ui/container";
 import type { SiteContent } from "@/content/site";
 
@@ -18,25 +15,20 @@ export function Footer({
   navigation,
 }: FooterProps) {
   return (
-    <footer className="border-t border-white/10 pb-10 pt-8">
+    <footer className="border-t border-white/10 pb-10 pt-8 sm:pb-12">
       <Container className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-        <div className="space-y-4">
-          <a
-            className="inline-block rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            href="#top"
-          >
-            <BrandLogo className="w-[150px]" />
-          </a>
-          <p className="max-w-md text-sm leading-7 text-muted-foreground">
-            {footer.note}
+        <div className="max-w-md space-y-4">
+          <p className="font-mono text-[11px] tracking-[0.28em] text-white/58 uppercase">
+            {companyName}
           </p>
+          <p className="text-sm leading-7 text-muted-foreground">{footer.note}</p>
         </div>
 
         <div className="space-y-4 lg:text-right">
           <nav className="flex flex-wrap gap-4 lg:justify-end">
             {navigation.map((item) => (
               <a
-                className="text-xs font-semibold tracking-[0.22em] text-muted-foreground uppercase transition hover:text-foreground"
+                className="font-mono text-[11px] tracking-[0.28em] text-muted-foreground uppercase transition hover:text-white"
                 href={item.href}
                 key={item.href}
               >
@@ -44,22 +36,22 @@ export function Footer({
               </a>
             ))}
           </nav>
-          <div className="space-y-3 lg:ml-auto lg:max-w-sm">
+
+          <div className="space-y-2 text-sm text-muted-foreground">
             <a
-              className="flex items-center gap-3 text-sm text-muted-foreground transition hover:text-foreground lg:justify-end"
+              className="block transition hover:text-white"
               href={contactDetails.email.href}
             >
-              <Mail className="h-4 w-4 text-accent" />
-              <span>{contactDetails.email.value}</span>
+              {contactDetails.email.value}
             </a>
             <a
-              className="flex items-center gap-3 text-sm text-muted-foreground transition hover:text-foreground lg:justify-end"
+              className="block transition hover:text-white"
               href={contactDetails.phone.href}
             >
-              <PhoneCall className="h-4 w-4 text-accent" />
-              <span>{contactDetails.phone.value}</span>
+              {contactDetails.phone.value}
             </a>
           </div>
+
           <p className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} {companyName}. All rights reserved.
           </p>

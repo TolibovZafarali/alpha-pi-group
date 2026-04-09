@@ -1,7 +1,11 @@
-import { Check, Mail, PhoneCall } from "lucide-react";
+"use client";
+
+import { useRef } from "react";
+
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { ArrowDownRight, Mail, PhoneCall } from "lucide-react";
 
 import { ButtonLink } from "@/components/ui/button-link";
-import { BrandLogo } from "@/components/ui/brand-logo";
 import { Container } from "@/components/ui/container";
 import { Reveal, StaggerGroup, StaggerItem } from "@/components/ui/reveal";
 import type { SiteContent } from "@/content/site";
@@ -12,42 +16,70 @@ type HeroSectionProps = {
 };
 
 export function HeroSection({ contactDetails, hero }: HeroSectionProps) {
-  const titleWithoutHighlight = hero.title.replace(hero.highlightedText, "").trim();
+  const ref = useRef<HTMLElement | null>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const glowY = useTransform(scrollYProgress, [0, 1], [0, 180]);
+  const railY = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const panelY = useTransform(scrollYProgress, [0, 1], [0, 110]);
+  const panelScale = useTransform(scrollYProgress, [0, 0.55], [1, 0.97]);
 
   return (
     <section
-      className="relative overflow-hidden pb-24 pt-16 sm:pb-28 sm:pt-20 lg:pb-32 lg:pt-24"
+      className="relative overflow-hidden pb-20 pt-32 sm:pb-24 sm:pt-36 lg:pb-28 lg:pt-40"
       id="top"
+      ref={ref}
     >
-      <div
+      <motion.div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-[32rem] bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:72px_72px] opacity-[0.18] [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.8),transparent)]"
+        className="absolute inset-x-0 top-0 h-[48rem] bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:88px_88px] opacity-35 [mask-image:linear-gradient(180deg,rgba(0,0,0,0.85),transparent)]"
+        style={prefersReducedMotion ? undefined : { y: backgroundY }}
       />
-      <Container className="grid items-end gap-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(360px,0.9fr)] lg:gap-12">
-        <div className="max-w-3xl">
+      <motion.div
+        aria-hidden="true"
+        className="absolute left-[-8rem] top-8 h-[28rem] w-[28rem] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0.02)_34%,rgba(255,255,255,0)_70%)] blur-3xl"
+        style={prefersReducedMotion ? undefined : { y: glowY }}
+      />
+      <motion.div
+        aria-hidden="true"
+        className="absolute right-[-10rem] top-24 h-[34rem] w-[34rem] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.08)_0%,rgba(255,255,255,0.02)_32%,rgba(255,255,255,0)_72%)] blur-3xl"
+        style={prefersReducedMotion ? undefined : { y: railY }}
+      />
+
+      <Container className="relative grid min-h-[calc(100svh-7rem)] items-end gap-14 xl:grid-cols-[minmax(0,1.06fr)_minmax(300px,0.56fr)] xl:gap-10">
+        <div className="max-w-5xl pb-2 sm:pb-6">
           <Reveal>
-            <div className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs font-semibold tracking-[0.24em] text-accent uppercase shadow-[0_10px_40px_rgba(0,0,0,0.18)]">
-              <span className="h-2 w-2 rounded-full bg-accent" />
+            <div className="inline-flex items-center gap-3 border border-white/12 bg-white/[0.03] px-4 py-2 font-mono text-[11px] tracking-[0.28em] text-white/78 uppercase">
+              <span className="h-1.5 w-1.5 rounded-full bg-white" />
               {hero.eyebrow}
             </div>
           </Reveal>
 
-          <Reveal className="mt-8" delay={0.08}>
-            <h1 className="max-w-4xl text-5xl leading-[0.95] font-semibold tracking-[-0.06em] text-foreground sm:text-6xl lg:text-[5.6rem]">
-              {titleWithoutHighlight}{" "}
-              <span className="font-serif font-medium italic text-accent-strong">
-                {hero.highlightedText}
-              </span>
-            </h1>
-          </Reveal>
+          <StaggerGroup amount={0.25} className="mt-7 space-y-1">
+            {hero.titleLines.map((line) => (
+              <StaggerItem key={line}>
+                <span className="block text-[clamp(3.55rem,8vw,8rem)] leading-[0.92] font-medium tracking-[-0.08em] text-white">
+                  {line}
+                </span>
+              </StaggerItem>
+            ))}
+          </StaggerGroup>
 
-          <Reveal className="mt-8 max-w-2xl" delay={0.16}>
-            <p className="text-lg leading-8 text-muted-foreground sm:text-xl">
+          <Reveal className="mt-8 max-w-2xl" delay={0.12}>
+            <p className="text-lg leading-8 text-foreground-soft sm:text-xl sm:leading-9">
               {hero.description}
             </p>
           </Reveal>
 
-          <Reveal className="mt-10 flex flex-col gap-4 sm:flex-row" delay={0.24}>
+          <Reveal
+            className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center"
+            delay={0.2}
+          >
             <ButtonLink href={hero.primaryAction.href}>
               {hero.primaryAction.label}
             </ButtonLink>
@@ -59,83 +91,106 @@ export function HeroSection({ contactDetails, hero }: HeroSectionProps) {
               {hero.secondaryAction.label}
             </ButtonLink>
           </Reveal>
+
+          <Reveal className="mt-10" delay={0.28}>
+            <a
+              className="font-mono inline-flex items-center gap-3 text-[11px] tracking-[0.28em] text-muted-foreground uppercase transition hover:text-white"
+              href="#about"
+            >
+              <span className="h-px w-14 bg-white/16" />
+              {hero.scrollLabel}
+              <ArrowDownRight className="h-4 w-4" />
+            </a>
+          </Reveal>
         </div>
 
-        <Reveal className="lg:justify-self-end" delay={0.18}>
-          <div className="relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.04] p-4 shadow-[0_30px_90px_rgba(0,0,0,0.38)] backdrop-blur-md sm:p-5">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(198,176,138,0.12),_transparent_50%)]" />
+        <motion.div
+          className="grid gap-4 xl:mb-8"
+          style={
+            prefersReducedMotion
+              ? undefined
+              : { y: panelY, scale: panelScale }
+          }
+        >
+          <Reveal x={32} y={18}>
+            <div className="border-t border-white/16 pt-6">
+              <p className="max-w-sm text-lg leading-8 text-foreground-soft">
+                {hero.supportingIntro}
+              </p>
+            </div>
+          </Reveal>
 
-            <div className="relative rounded-[28px] bg-[#efe6d8] p-8 text-[#14161c] sm:p-10">
-              <BrandLogo className="w-[180px] sm:w-[210px]" variant="dark" />
-              <div className="mt-10 max-w-sm space-y-5">
-                <p className="text-xs font-semibold tracking-[0.24em] uppercase text-[#6f6558]">
-                  {hero.plaqueTitle}
+          {hero.panels.map((panel, index) => (
+            <Reveal
+              className="border border-white/10 bg-white/[0.025] p-6 backdrop-blur-sm sm:p-7"
+              delay={0.08 * index}
+              key={panel.title}
+              x={index % 2 === 0 ? 28 : -28}
+              y={22}
+            >
+              <article>
+                <div className="flex items-center gap-4">
+                  <span className="font-mono text-[11px] tracking-[0.28em] text-white/78 uppercase">
+                    {panel.index}
+                  </span>
+                  <span className="h-px flex-1 bg-white/10" />
+                </div>
+                <h2 className="mt-5 max-w-sm text-2xl leading-tight font-medium tracking-[-0.05em] text-white">
+                  {panel.title}
+                </h2>
+                <p className="mt-4 max-w-sm text-sm leading-7 text-muted-foreground sm:text-base">
+                  {panel.description}
                 </p>
-                <p className="text-lg leading-8 text-[#242831]">
-                  {hero.plaqueDescription}
-                </p>
-              </div>
+              </article>
+            </Reveal>
+          ))}
 
-              <StaggerGroup className="mt-8 space-y-3">
-                {hero.plaqueHighlights.map((highlight) => (
-                  <StaggerItem key={highlight}>
-                    <div className="flex items-center gap-3 text-sm font-semibold tracking-[0.14em] uppercase text-[#1c2028]">
-                      <Check className="h-4 w-4 text-[#8d7753]" />
-                      {highlight}
-                    </div>
-                  </StaggerItem>
-                ))}
-              </StaggerGroup>
+          <Reveal
+            className="border border-white/10 bg-black/40 p-6 sm:p-7"
+            delay={0.24}
+            x={30}
+            y={18}
+          >
+            <div className="flex items-center gap-4">
+              <span className="font-mono text-[11px] tracking-[0.28em] text-white/78 uppercase">
+                {hero.contactLabel}
+              </span>
+              <span className="h-px flex-1 bg-white/10" />
             </div>
 
-            <div className="relative mt-4 grid gap-4 sm:grid-cols-2">
-              {hero.supportingNotes.map((note) => (
-                <div
-                  className="rounded-[24px] border border-white/10 bg-[#0f131b] p-5"
-                  key={note.title}
-                >
-                  <p className="text-sm font-semibold tracking-[0.16em] text-accent uppercase">
-                    {note.title}
+            <div className="mt-5 grid gap-3">
+              <a
+                className="group flex items-start gap-4 border-t border-white/10 pt-4 text-left transition hover:text-white"
+                href={contactDetails.email.href}
+              >
+                <Mail className="mt-1 h-4 w-4 text-white/72" />
+                <div>
+                  <p className="font-mono text-[11px] tracking-[0.26em] text-muted-foreground uppercase">
+                    {contactDetails.email.label}
                   </p>
-                  <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                    {note.description}
+                  <p className="mt-2 text-base text-foreground-soft transition group-hover:text-white">
+                    {contactDetails.email.value}
                   </p>
                 </div>
-              ))}
-              <div className="rounded-[24px] border border-accent/20 bg-accent/10 p-5 sm:col-span-2">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <a
-                    className="rounded-[18px] border border-white/10 bg-black/10 px-4 py-4 transition hover:bg-black/15"
-                    href={contactDetails.email.href}
-                  >
-                    <div className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.18em] text-[#8d7753] uppercase">
-                      <Mail className="h-4 w-4" />
-                      {contactDetails.email.label}
-                    </div>
-                    <p className="mt-2 text-sm font-medium text-[#2a3039]">
-                      {contactDetails.email.value}
-                    </p>
-                  </a>
-                  <a
-                    className="rounded-[18px] border border-white/10 bg-black/10 px-4 py-4 transition hover:bg-black/15"
-                    href={contactDetails.phone.href}
-                  >
-                    <div className="flex items-center gap-3 text-[11px] font-semibold tracking-[0.18em] text-[#8d7753] uppercase">
-                      <PhoneCall className="h-4 w-4" />
-                      {contactDetails.phone.label}
-                    </div>
-                    <p className="mt-2 text-sm font-medium text-[#2a3039]">
-                      {contactDetails.phone.value}
-                    </p>
-                  </a>
+              </a>
+
+              <a
+                className="group flex items-start gap-4 border-t border-white/10 pt-4 text-left transition hover:text-white"
+                href={contactDetails.phone.href}
+              >
+                <PhoneCall className="mt-1 h-4 w-4 text-white/72" />
+                <div>
+                  <p className="font-mono text-[11px] tracking-[0.26em] text-muted-foreground uppercase">
+                    {contactDetails.phone.label}
+                  </p>
+                  <p className="mt-2 text-base text-foreground-soft transition group-hover:text-white">
+                    {contactDetails.phone.value}
+                  </p>
                 </div>
-                <p className="mt-4 text-sm leading-7 text-[#594c35]">
-                  {contactDetails.note}
-                </p>
-              </div>
+              </a>
             </div>
-          </div>
-        </Reveal>
+          </Reveal>
+        </motion.div>
       </Container>
     </section>
   );

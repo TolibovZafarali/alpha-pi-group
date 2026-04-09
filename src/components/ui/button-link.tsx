@@ -21,10 +21,10 @@ export function ButtonLink({
   return (
     <a
       className={cx(
-        "inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold tracking-[0.16em] uppercase transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        "font-mono inline-flex items-center gap-3 border px-5 py-3 text-[11px] font-medium tracking-[0.28em] uppercase transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         variant === "primary"
-          ? "border border-accent/30 bg-accent text-[#111317] shadow-[0_14px_36px_rgba(198,176,138,0.18)] hover:-translate-y-0.5 hover:bg-accent-strong"
-          : "border border-white/12 bg-white/[0.03] text-foreground hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/[0.06]",
+          ? "border-white bg-white text-black hover:-translate-y-0.5 hover:bg-transparent hover:text-white"
+          : "border-white/16 bg-white/[0.02] text-white hover:-translate-y-0.5 hover:border-white/28 hover:bg-white/[0.06]",
         className,
       )}
       {...props}
@@ -34,4 +34,3 @@ export function ButtonLink({
     </a>
   );
 }
-

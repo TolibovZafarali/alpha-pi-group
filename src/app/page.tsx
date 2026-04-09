@@ -11,8 +11,9 @@ export default function Home() {
   return (
     <div className="relative overflow-x-clip bg-background text-foreground">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <div className="absolute left-1/2 top-[-12rem] h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(198,176,138,0.24)_0%,_rgba(198,176,138,0)_68%)] blur-3xl" />
-        <div className="absolute right-[-10rem] top-[20rem] h-[26rem] w-[26rem] rounded-full bg-[radial-gradient(circle,_rgba(129,140,153,0.14)_0%,_rgba(129,140,153,0)_68%)] blur-3xl" />
+        <div className="absolute left-[-8rem] top-20 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,_rgba(255,255,255,0.12)_0%,_rgba(255,255,255,0)_68%)] blur-3xl" />
+        <div className="absolute right-[-12rem] top-[28rem] h-[32rem] w-[32rem] rounded-full bg-[radial-gradient(circle,_rgba(255,255,255,0.08)_0%,_rgba(255,255,255,0)_70%)] blur-3xl" />
+        <div className="absolute inset-x-0 top-[38rem] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       </div>
 
       <Header
