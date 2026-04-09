@@ -3,34 +3,28 @@ import type { SiteContent } from "@/content/site";
 
 type FooterProps = {
   companyName: string;
-  contactDetails: SiteContent["contactDetails"];
   footer: SiteContent["footer"];
   navigation: SiteContent["navigation"];
 };
 
-export function Footer({
-  companyName,
-  contactDetails,
-  footer,
-  navigation,
-}: FooterProps) {
+export function Footer({ companyName, footer, navigation }: FooterProps) {
   return (
-    <footer className="border-t border-white/10 pb-10 pt-10 sm:pb-12 sm:pt-12">
-      <Container className="grid gap-10 lg:grid-cols-[minmax(0,0.56fr)_minmax(0,0.44fr)] lg:items-end">
-        <div className="max-w-2xl">
-          <p className="font-mono text-[10px] tracking-[0.32em] text-white/46 uppercase">
+    <footer className="border-t border-white/10 py-8 sm:py-10">
+      <Container className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div className="max-w-xl">
+          <p className="font-mono text-[10px] tracking-[0.3em] text-white/46 uppercase">
             {companyName}
           </p>
-          <p className="mt-5 text-[clamp(1.8rem,3vw,3rem)] leading-[1.05] tracking-[-0.07em] text-white">
+          <p className="mt-3 text-sm leading-6 text-white/64 sm:text-base">
             {footer.note}
           </p>
         </div>
 
-        <div className="grid gap-8 lg:justify-items-end">
-          <nav className="grid gap-px border border-white/10 bg-white/10 sm:grid-cols-2">
+        <div className="flex flex-col gap-4 md:items-end">
+          <nav className="flex flex-wrap gap-5">
             {navigation.map((item) => (
               <a
-                className="bg-black px-4 py-3 font-mono text-[11px] tracking-[0.26em] text-white/68 uppercase transition hover:bg-white hover:text-black"
+                className="font-mono text-[11px] tracking-[0.24em] text-white/64 uppercase transition-colors duration-200 hover:text-white"
                 href={item.href}
                 key={item.href}
               >
@@ -39,29 +33,7 @@ export function Footer({
             ))}
           </nav>
 
-          <div className="grid gap-5 text-sm text-muted-foreground sm:grid-cols-2 lg:text-right">
-            {contactDetails.operators.map((operator) => (
-              <div className="space-y-2" key={operator.email.href}>
-                <p className="font-mono text-[10px] tracking-[0.28em] text-white/46 uppercase">
-                  {operator.name}
-                </p>
-                <a
-                  className="block transition hover:text-white"
-                  href={operator.email.href}
-                >
-                  {operator.email.value}
-                </a>
-                <a
-                  className="block transition hover:text-white"
-                  href={operator.phone.href}
-                >
-                  {operator.phone.value}
-                </a>
-              </div>
-            ))}
-          </div>
-
-          <p className="font-mono text-[10px] tracking-[0.28em] text-white/38 uppercase">
+          <p className="font-mono text-[10px] tracking-[0.24em] text-white/38 uppercase">
             © {new Date().getFullYear()} {companyName}
           </p>
         </div>

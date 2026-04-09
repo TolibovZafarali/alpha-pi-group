@@ -21,14 +21,14 @@ export function ButtonLink({
   return (
     <a
       className={cx(
-        "font-mono inline-flex items-center gap-3 border px-5 py-3 text-[11px] font-medium tracking-[0.28em] uppercase transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        "inline-flex items-center gap-3 border px-5 py-3 font-mono text-[11px] font-medium tracking-[0.24em] uppercase transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         variant === "primary"
-          ? "border-white bg-white text-black hover:-translate-y-0.5 hover:bg-transparent hover:text-white"
+          ? "border-white bg-white text-black hover:bg-transparent hover:text-white"
           : variant === "secondary"
-            ? "border-white/16 bg-white/[0.02] text-white hover:-translate-y-0.5 hover:border-white/28 hover:bg-white/[0.06]"
+            ? "border-white/16 bg-transparent text-white hover:border-white/36 hover:bg-white/[0.04]"
             : variant === "dark"
-              ? "border-black bg-black text-white hover:-translate-y-0.5 hover:bg-transparent hover:text-black focus-visible:ring-black focus-visible:ring-offset-white"
-              : "border-black/18 bg-transparent text-black hover:-translate-y-0.5 hover:border-black hover:bg-black hover:text-white focus-visible:ring-black focus-visible:ring-offset-white",
+              ? "border-black bg-black text-white hover:bg-transparent hover:text-black focus-visible:ring-black focus-visible:ring-offset-white"
+              : "border-black/18 bg-transparent text-black hover:border-black hover:bg-black hover:text-white focus-visible:ring-black focus-visible:ring-offset-white",
         className,
       )}
       {...props}
