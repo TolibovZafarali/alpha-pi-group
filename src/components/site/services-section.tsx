@@ -9,10 +9,10 @@ type ServicesSectionProps = {
 export function ServicesSection({ services }: ServicesSectionProps) {
   return (
     <section
-      className="scroll-mt-24 bg-white py-20 text-black sm:py-24 lg:py-28"
+      className="scroll-mt-[calc(var(--site-header-height)+1.5rem)] flex min-h-screen min-h-dvh items-center bg-white py-14 text-black sm:py-24 lg:py-28"
       id="services"
     >
-      <Container>
+      <Container className="w-full">
         <Reveal className="max-w-3xl">
           <p className="font-mono text-[10px] tracking-[0.3em] text-black/52 uppercase">
             {services.eyebrow}
@@ -25,10 +25,10 @@ export function ServicesSection({ services }: ServicesSectionProps) {
           </p>
         </Reveal>
 
-        <div className="mt-12 border-t border-black/12">
+        <div className="mt-10 border-t border-black/12 sm:mt-12">
           {services.items.map((item) => (
             <Reveal key={item.index}>
-              <article className="grid gap-4 border-b border-black/12 py-6 sm:py-8 md:grid-cols-[72px_minmax(180px,240px)_minmax(0,1fr)] md:gap-6">
+              <article className="grid gap-4 border-b border-black/12 py-5 sm:py-8 md:grid-cols-[72px_minmax(180px,240px)_minmax(0,1fr)] md:gap-6">
                 <span className="font-mono text-[10px] tracking-[0.3em] text-black/48 uppercase">
                   {item.index}
                 </span>

@@ -82,6 +82,33 @@ export function Header({ ctaHref, navigation }: HeaderProps) {
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    const headerElement = headerRef.current;
+
+    if (!headerElement) {
+      return;
+    }
+
+    const root = document.documentElement;
+    const updateHeaderHeight = () => {
+      root.style.setProperty(
+        "--site-header-height",
+        `${headerElement.offsetHeight}px`,
+      );
+    };
+
+    updateHeaderHeight();
+
+    const resizeObserver = new ResizeObserver(updateHeaderHeight);
+    resizeObserver.observe(headerElement);
+    window.addEventListener("resize", updateHeaderHeight);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateHeaderHeight);
+    };
+  }, []);
+
   return (
     <header
       className="fixed inset-x-0 top-0 z-50 bg-black/80 backdrop-blur-md"

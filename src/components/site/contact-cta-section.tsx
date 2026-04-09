@@ -15,10 +15,10 @@ export function ContactCtaSection({
 }: ContactCtaSectionProps) {
   return (
     <section
-      className="scroll-mt-24 bg-white py-20 text-black sm:py-24 lg:py-28"
+      className="scroll-mt-[calc(var(--site-header-height)+1.5rem)] flex min-h-screen min-h-dvh items-center bg-white py-20 text-black sm:py-24 lg:py-28"
       id="contact"
     >
-      <Container>
+      <Container className="w-full">
         <Reveal className="max-w-5xl">
           <p className="font-mono text-[10px] tracking-[0.3em] text-black/52 uppercase">
             {contact.eyebrow}
