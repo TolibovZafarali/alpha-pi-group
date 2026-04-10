@@ -14,6 +14,13 @@ import { cx } from "@/lib/cx";
 
 const rightRearWheelX = 540;
 const frontWheelX = 602;
+const truckTravelPercent = 60;
+const wheelRadius = 20;
+const wheelSpinMultiplier = 3;
+const wheelRotationDegrees =
+  ((760 * (truckTravelPercent / 100)) / (2 * Math.PI * wheelRadius)) *
+  360 *
+  wheelSpinMultiplier;
 
 const wheelCenters = [
   { x: 182, y: 232 },
@@ -43,8 +50,15 @@ export function HeroTruckIllustration({
     mass: 0.28,
   });
 
-  const truckX = useTransform(smoothProgress, [0, 1], ["0%", "60%"]);
-  const wheelRotation = useTransform(smoothProgress, [0, 1], [0, 780]);
+  const truckX = useTransform(smoothProgress, [0, 1], [
+    "0%",
+    `${truckTravelPercent}%`,
+  ]);
+  const wheelRotation = useTransform(
+    smoothProgress,
+    [0, 1],
+    [0, wheelRotationDegrees],
+  );
 
   return (
     <div
@@ -66,14 +80,17 @@ export function HeroTruckIllustration({
       >
         <div className="absolute bottom-[-0.625rem] left-[30%] w-[18rem] max-w-none -translate-x-1/2 sm:bottom-[-2.25rem] sm:left-[56%] sm:w-[32rem] lg:bottom-[-2.75rem] lg:w-[38rem] xl:bottom-[-3rem] xl:w-[42rem]">
           <motion.svg
-            className="h-auto w-full text-[#c0c6cf] opacity-[0.08] sm:opacity-[0.15] lg:opacity-[0.18]"
+            className="h-auto w-full text-[#c0c6cf]"
             fill="none"
             style={prefersReducedMotion ? undefined : { x: truckX }}
             viewBox="0 0 760 300"
             xmlns="http://www.w3.org/2000/svg"
           >
             <g transform="translate(0 -8)">
-              <g fill="currentColor">
+              <g
+                className="opacity-[0.08] sm:opacity-[0.15] lg:opacity-[0.18]"
+                fill="currentColor"
+              >
                 <rect height="104" rx="8" width="468" x="82" y="92" />
                 <rect
                   fillOpacity="0.72"
@@ -179,7 +196,11 @@ export function HeroTruckIllustration({
               </g>
 
               {wheelCenters.map(({ x, y }) => (
-                <g key={`${x}-${y}`} transform={`translate(${x} ${y})`}>
+                <g
+                  className="opacity-[0.16] sm:opacity-[0.3] lg:opacity-[0.38]"
+                  key={`${x}-${y}`}
+                  transform={`translate(${x} ${y})`}
+                >
                   <motion.g
                     style={
                       prefersReducedMotion
@@ -191,27 +212,37 @@ export function HeroTruckIllustration({
                           }
                     }
                   >
-                    <circle cx="0" cy="0" fill="currentColor" r="20" />
-                    <circle cx="0" cy="0" fill="#050505" fillOpacity="0.48" r="9" />
-                    <circle cx="0" cy="0" fill="currentColor" fillOpacity="0.88" r="3.2" />
-                    <rect
+                    <circle cx="0" cy="0" fill="#3a3f46" r="20" />
+                    <circle
+                      cx="0"
+                      cy="0"
                       fill="#050505"
-                      fillOpacity="0.44"
-                      height="4"
-                      rx="2"
-                      width="18"
-                      x="-9"
-                      y="-2"
+                      fillOpacity="0.82"
+                      r="12"
                     />
-                    <rect
-                      fill="#050505"
-                      fillOpacity="0.44"
-                      height="18"
-                      rx="2"
-                      width="4"
-                      x="-2"
-                      y="-9"
+                    <circle
+                      cx="0"
+                      cy="0"
+                      fill="none"
+                      r="10.4"
+                      stroke="white"
+                      strokeOpacity="0.86"
+                      strokeWidth="1.6"
                     />
+                    <g
+                      stroke="white"
+                      strokeLinecap="round"
+                      strokeOpacity="0.94"
+                      strokeWidth="2.3"
+                    >
+                      <line x1="0" x2="0" y1="0" y2="-8.8" />
+                      <line x1="0" x2="7.6" y1="0" y2="-4.4" />
+                      <line x1="0" x2="7.2" y1="0" y2="5.2" />
+                      <line x1="0" x2="-1.4" y1="0" y2="8.6" />
+                      <line x1="0" x2="-8.4" y1="0" y2="3.6" />
+                      <line x1="0" x2="-7.4" y1="0" y2="-4.8" />
+                    </g>
+                    <circle cx="0" cy="0" fill="white" r="3.1" />
                   </motion.g>
                 </g>
               ))}
