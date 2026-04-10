@@ -118,7 +118,7 @@ export function Header({ ctaHref, navigation }: HeaderProps) {
   return (
     <>
       <header
-        className="fixed inset-x-0 top-0 z-50 bg-black/80 backdrop-blur-md"
+        className="fixed inset-x-0 top-0 z-50 bg-black/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl"
         ref={headerRef}
       >
         <Container className="flex items-center justify-between gap-5 py-4">
@@ -186,7 +186,7 @@ export function Header({ ctaHref, navigation }: HeaderProps) {
         {isOpen ? (
           <motion.div
             animate={{ opacity: 1, y: 0 }}
-            className="fixed inset-x-0 z-40 overflow-y-auto border-t border-white/10 bg-black/80 backdrop-blur-md md:hidden"
+            className="fixed inset-x-0 z-40 overflow-y-auto border-t border-white/10 bg-black/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl md:hidden"
             exit={{ opacity: 0, y: -8 }}
             id="mobile-navigation"
             initial={{ opacity: 0, y: -8 }}
