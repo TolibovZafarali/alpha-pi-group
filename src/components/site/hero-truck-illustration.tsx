@@ -78,9 +78,9 @@ export function HeroTruckIllustration({
             "linear-gradient(90deg, transparent 0%, black 20%, black 88%, transparent 100%), linear-gradient(180deg, black 0%, black 82%, transparent 100%)",
         }}
       >
-        <div className="absolute bottom-[-0.625rem] left-[30%] w-[18rem] max-w-none -translate-x-1/2 sm:bottom-[-2.25rem] sm:left-[56%] sm:w-[32rem] lg:bottom-[-2.75rem] lg:w-[38rem] xl:bottom-[-3rem] xl:w-[42rem]">
+        <div className="absolute bottom-[-0.875rem] left-[32%] w-[22rem] max-w-none -translate-x-1/2 sm:bottom-[-2.25rem] sm:left-[56%] sm:w-[32rem] lg:bottom-[-2.75rem] lg:w-[38rem] xl:bottom-[-3rem] xl:w-[42rem]">
           <motion.svg
-            className="h-auto w-full text-[#c0c6cf]"
+            className="h-auto w-full text-[#dbe3ec] drop-shadow-[0_0_18px_rgba(219,227,236,0.18)] sm:text-[#c0c6cf] sm:drop-shadow-none"
             fill="none"
             style={prefersReducedMotion ? undefined : { x: truckX }}
             viewBox="0 0 760 300"
@@ -88,7 +88,7 @@ export function HeroTruckIllustration({
           >
             <g transform="translate(0 -8)">
               <g
-                className="opacity-[0.08] sm:opacity-[0.15] lg:opacity-[0.18]"
+                className="opacity-[0.16] sm:opacity-[0.15] lg:opacity-[0.18]"
                 fill="currentColor"
               >
                 <rect height="104" rx="8" width="468" x="82" y="92" />
@@ -197,7 +197,7 @@ export function HeroTruckIllustration({
 
               {wheelCenters.map(({ x, y }) => (
                 <g
-                  className="opacity-[0.16] sm:opacity-[0.3] lg:opacity-[0.38]"
+                  className="opacity-[0.24] sm:opacity-[0.3] lg:opacity-[0.38]"
                   key={`${x}-${y}`}
                   transform={`translate(${x} ${y})`}
                 >
