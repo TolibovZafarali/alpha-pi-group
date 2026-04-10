@@ -50,7 +50,7 @@ export function HeroTruckIllustration({
     <div
       aria-hidden="true"
       className={cx(
-        "pointer-events-none absolute inset-0 hidden overflow-hidden sm:block",
+        "pointer-events-none absolute inset-0 overflow-hidden",
         className,
       )}
       ref={wrapperRef}
@@ -64,9 +64,9 @@ export function HeroTruckIllustration({
             "linear-gradient(90deg, transparent 0%, black 20%, black 88%, transparent 100%), linear-gradient(180deg, black 0%, black 82%, transparent 100%)",
         }}
       >
-        <div className="absolute bottom-[-1.875rem] left-[56%] w-[26rem] max-w-none -translate-x-1/2 sm:bottom-[-2.25rem] sm:w-[32rem] lg:bottom-[-2.75rem] lg:w-[38rem] xl:bottom-[-3rem] xl:w-[42rem]">
+        <div className="absolute bottom-[-0.625rem] left-[30%] w-[18rem] max-w-none -translate-x-1/2 sm:bottom-[-2.25rem] sm:left-[56%] sm:w-[32rem] lg:bottom-[-2.75rem] lg:w-[38rem] xl:bottom-[-3rem] xl:w-[42rem]">
           <motion.svg
-            className="h-auto w-full text-[#c0c6cf] opacity-[0.12] sm:opacity-[0.15] lg:opacity-[0.18]"
+            className="h-auto w-full text-[#c0c6cf] opacity-[0.08] sm:opacity-[0.15] lg:opacity-[0.18]"
             fill="none"
             style={prefersReducedMotion ? undefined : { x: truckX }}
             viewBox="0 0 760 300"
