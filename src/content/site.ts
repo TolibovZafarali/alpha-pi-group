@@ -37,7 +37,7 @@ export const siteContent = {
   ],
   hero: {
     eyebrow: "Alpha-Pi Group",
-    title: "We help motor carriers hire truck drivers",
+    title: "Where Great Drivers Meet Great Carriers.",
     description:
       "We help carriers recruit drivers, stay organized, and communicate professionally.",
     primaryAction: {
